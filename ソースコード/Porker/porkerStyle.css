@@ -1,0 +1,327 @@
+:root { 
+  background-color: rgb(1, 125, 26);
+  font-size: 20px;
+  font-weight: bolder;
+ }
+
+main {
+  width: 80%;
+  max-width: 100;
+  height: 1000px;
+  margin: 0 auto;
+}
+
+p {
+  background-color: white;
+  margin: auto;
+  border-style: solid;
+  border-color: black;
+  text-align: center;
+}
+
+#dealer,#table,#player{
+  text-align: center;
+}
+
+img {
+  padding: 0px 10px 0px 10px;
+  height: 150px;
+}
+
+#trump{
+  margin-top: 20px;
+  text-align: center;
+}
+
+#dealer{
+  padding: 280px 0px 0px 0px;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: fixed;
+  display: flex; 
+  justify-content: center;
+}
+
+#player{
+  top: 200px;
+  width: 650px;
+  height: 150px;
+  margin: 500px 0px 20px 0px;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: fixed;
+  display: flex; 
+  justify-content: center;
+}
+
+#table{
+  top: 200px;
+  width: 650px;
+  height: 150px;
+  margin: 230px 0px 20px 0px;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: fixed;
+  display: flex; 
+  justify-content: center;
+  display: none;
+}
+
+#changeMessage{
+  width: 600px; 
+  position: absolute;
+  display: none;
+  top: 400px;
+  position: fixed;
+  left: 50%; /* 横方向の中央に配置 */
+  transform: translateX(-50%);
+}
+
+#selectMessage {
+  width: 300px;
+}
+
+#gameSelect{
+  text-align: center;
+  margin: 80px 10px 0px 10px;
+}
+
+#fiveCardDraw{
+  width: 250px;
+  height: 40px;
+  font-size: 20px;
+  margin-top: 70px;
+}
+
+#texasHoldem{
+  width: 250px;
+  height: 40px;
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+#gameEnd {
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  margin-top: 50px;
+  font-weight: bolder;
+  right: 50%; 
+  transform: translateX(-250px);
+}
+
+#topDisplay{
+  display: flex;
+}
+
+#gameName{
+  display: none;
+  width: 230px;
+  left: 50%; 
+  transform: translateX(-300px);
+  position: fixed;
+}
+
+/* -----------------------ここから--------------------------------------------- */
+#ownBetMoney{
+  width: 270px;
+  display: none;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+/* 真ん中(left50%)から200px右 */
+  left: 50%; 
+  transform: translateX(200px);
+  position: fixed;
+}
+
+#ownMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+
+#planBetMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+/* -----------------------ここまで--------------------------------------------- */
+
+
+/* ---------------ここから----------------------------------------------------------------- */
+#betting {
+  /* 以下topとleft(中央から340px右)で位置変更 */
+  top: 550px;
+  left: calc(50% + 340px);
+  position: fixed; /* 位置固定、拡大縮小でも変わらない */
+  text-align: center;
+}
+
+#betPrice{
+  display: flex;
+}
+
+#oneThousand, #tenThousand{
+  margin: 0px 6px 0px 6px;
+}
+
+#upLeft,#upRight{
+  background-color: #ff9100;
+  height: 40px;
+  width: 40px;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  margin: 5px 10px 5px 11px;
+
+}
+
+#downLeft,#downRight{
+  background-color: #00bbff;
+  height: 40px;
+  width: 40px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  margin: 5px 10px 5px 11px;
+}
+
+/* --------------------------ここまで---------------------------------------------------- */
+
+#betPrice{
+  visibility: hidden;
+}
+
+#bet,#fold,#raise,#change{
+  display: none;
+  margin-top: 20px;
+
+}
+
+#bettingButton{
+  text-align: center;
+}
+
+#bet{
+  width: 80px;
+  height: 30px;
+  font-size: 17px;
+  margin-left: 32px;
+}
+
+#fold{
+  width: 120px;
+  height: 30px;
+  font-size: 17px;
+  margin-left: 15px;
+}
+
+#raise{
+  width: 80px;
+  height: 30px;
+  font-size: 17px;
+  margin-left: 32px;
+}
+
+#change{
+  width: 100px;
+  height: 30px;
+  font-size: 17px;
+  margin-top: 0px;
+  margin-left: 30px;
+}
+
+.border-active {
+  border: 8px solid yellow;
+}
+
+#resultBet {
+  top: 650px;
+  left: calc(50% + 340px);
+  position: fixed;
+  text-align: center;
+}
+
+#win,#lose,#draw{
+  width: 250px;
+  height: 80px;
+  font-size: 25px;
+  font-weight: bolder;
+  display: none;
+}
+
+#win{
+  color: red;
+}
+
+#lose{
+  color: blue;
+}
+
+#restart{
+  display: none;
+}
+
+#gameEndResult,#restart{
+  margin-top: 10px;
+  display: none;
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+#resultButton{
+  margin-top: 615px;
+  right: calc(50% + 360px);
+  position: fixed;
+  text-align: center;
+}
+
+#gameover{
+  width: 1000px;
+  height: auto;
+  top: 180px;
+  display: none;
+  /* 画像の背後が見えるように透過 */
+  opacity: 85%;
+  position: absolute;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%); 
+}
+
+#goclose{
+  margin-top: 560px;
+  position: absolute;
+  position: fixed;
+  display: none;
+  left: 50%;
+  transform: translateX(-50%); 
+  font-size: 20px;
+  height: 45px;
+  width: 100px;
+}
+
+#playeryaku,#dealeryaku{
+  display: none;
+  width: 400px;
+  height: 40px;
+  font-size: 25px;
+  position: fixed;
+  text-align: center;
+  left: 50%; /* 横方向の中央に配置 */
+  transform: translateX(-50%);
+
+  border-width: 2px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+#dealeryaku{
+  top: 145px;
+}
+
+#playeryaku{
+  top: 680px;
+}

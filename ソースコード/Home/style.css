@@ -1,0 +1,38 @@
+/* 所持金 */
+#ownMoney{
+  width: 270px;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+  margin-top: -100px;
+  padding: 5px 0px 5px 0px;
+/* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
+  left: 50%; 
+  transform: translateX(200px);
+}
+
+h1{
+  font-family: 'Palatino Linotype';
+  font-size: 55px;
+  text-align: center;
+}
+
+p{
+  font-weight: bolder;
+  font-size: 20px;
+  text-align: center;
+}
+
+#gameSelect{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+#slot,#roulette,#porker{
+  height: 300px;
+  margin-right: 30px;
+  margin-left: 30px;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="porkerStyle.css">
+  <title>Casino：ポーカー</title>
+</head>
+<body>
+  <main>
+    <div id = gameSelect>
+      <p id = selectMessage>ゲームを選択してください。</p>
+      <button id = fiveCardDraw>ファイブカードドロー</button>
+      <br>
+      <button id = texasHoldem>テキサスホールデム</button>
+      <br>
+      <button id = gameEnd onclick="location.href='../Home/index.html'">ゲーム終了</button>
+    </div>
+
+    <div id=topDisplay>
+      <p id=gameName></p>
+      <div id=ownBetMoney>
+        <p id=ownMoney></p>
+        <p id=planBetMoney></p>
+      </div>
+    </div>
+
+    <div id=trump>
+      <div id=dealer>
+      </div>
+
+      <div id=table>
+      </div>
+      <p id=changeMessage>交換するカードを選択してください</p>
+
+      <div id=player>
+      </div>
+    </div>
+
+    <div id = betting>
+      <div id = betPrice>
+        <div id = oneThousand>
+          <div id = "upLeft"></div>
+          <p>1000</p>
+          <div id = "downLeft"></div>
+        </div>
+        <div id = tenThousand>
+          <div id = "upRight"></div>
+          <p>10000</p>
+          <div id = "downRight"></div>
+        </div>
+      </div>
+      <div id=bettingButton>
+        <button id=bet>ベット</button>
+        <button id=raise>レイズ</button>
+        <button id=fold>フォールド</button>
+        <button id=change>チェンジ</button>
+      </div>
+    </div>
+
+    <dim id = result>
+      <div id=resultBet>
+        <p id=win></p>
+        <p id=lose></p>
+        <p id=draw></p>
+      </div>
+
+      <dim id=yakuDisplay>
+        <p id=playeryaku></p>
+        <p id=dealeryaku></p>
+      </dim>
+
+      <dim id = resultButton>
+        <button id=restart>リスタート</button>
+        <button id=gameEndResult onclick="location.href='../Home/index.html'">ゲーム終了</button>
+      </dim>
+    </dim>
+
+    <img id=gameover src="gameover.png">
+    <button id=goclose onclick="location.href='../Home/index.html'">閉じる</button>
+
+  </main>
+  <script src="porkerScript.js"></script>
+</body>
+</html>

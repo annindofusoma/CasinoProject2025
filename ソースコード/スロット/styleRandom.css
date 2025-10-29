@@ -1,0 +1,593 @@
+:root { font-size: 16px; }
+
+main {
+    width: 1200px;
+    height: 900px;
+    margin: 0 auto;
+    padding: 5px 5px 5px;
+    box-shadow: 0 0 10px 0 lightgray;
+}
+body {
+
+    background-color: rgb(1, 125, 26);
+
+}
+
+
+img {
+    margin: 0;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
+}
+
+
+#gameover{
+    width: 1930px;
+    height: auto;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 85%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+#goclose{
+    margin-top: 800px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 6;
+}
+
+
+#筐体上部 {
+    position: relative;
+    margin-left: 50px;
+    margin-top: -270px;
+    background-color: rgb(190, 220, 255);
+    width: 600px;
+    height: 600px;
+    border: 3px solid black;
+}
+
+#下パネル {
+    margin-left: 50px;
+    background-color: rgb(235, 180, 250);
+    width: 600px;
+    height: 250px;
+    border: 3px solid black;
+}
+
+#説明 {
+    position: absolute;
+    margin-left: 82.5px;
+    margin-top: 20px;
+    height: 180px;
+    width: auto;
+    display: block;
+    z-index: 3;
+}
+
+#カットイン {
+    position: absolute;
+    margin-left: 82.5px;
+    margin-top: 20px;
+    height: 180px;
+    width: auto;
+    display: block;
+    z-index: 3;
+}
+
+#リール枠上 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 228.5px;
+    width: 370px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠下 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 462px;
+    width: 370px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠左 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 232px;
+    height: 228px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠右 {
+    position: absolute;
+    margin-left: 483px;
+    margin-top: 232px;
+    height: 228px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#枠上隠し {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 58.5px;
+    width: 400px;
+    height: 170px;
+    background-color: rgb(190, 220, 255);
+    z-index: 2;
+}
+
+#枠下隠し {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 466px;
+    width: 400px;
+    height: 100px;
+    background-color: rgb(190, 220, 255);
+    z-index: 2;
+}
+
+#枠内白 {
+    position:absolute;
+    margin-left: 115px;
+    margin-top: 228px;
+    width: 370px;
+    height: 234px;
+    background-color: white;
+    z-index: 0;
+}
+
+#下パネルロゴ {
+    margin-left: 13px;
+    margin-top: 65px;
+    height: 120px;
+    width: 580px;
+}
+
+#リプレイ左 {
+    position: absolute;
+    top: 462.55px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー中 {
+    position: absolute;
+    top: 462.55px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#リプレイ右 {
+    position: absolute;
+    top: 462.55px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル左 {
+    position: absolute;
+    top: 385px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ中 {
+    position: absolute;
+    top: 385px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル右 {
+    position: absolute;
+    top: 385px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７左 {
+    position: absolute;
+    top: 307.45px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７中 {
+    position: absolute;
+    top: 307.45px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７右 {
+    position: absolute;
+    top: 307.45px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ左 {
+    position: absolute;
+    top: 229.9px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル中 {
+    position: absolute;
+    top: 229.9px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ右 {
+    position: absolute;
+    top: 229.9px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー左 {
+    position: absolute;
+    top: 152.35px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#リプレイ中 {
+    position: absolute;
+    top: 152.35px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー右 {
+    position: absolute;
+    top: 152.35px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+
+#start {
+    position: absolute;
+    top: 380px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 80, 55);
+    color: black;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+    text-align: center;
+}
+
+#stop1 {
+    position: absolute;
+    top: 495px;
+    left: 137px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#stop2 {
+    position: absolute;
+    top: 495px;
+    left: 261px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#stop3 {
+    position: absolute;
+    top: 495px;
+    left: 385px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#レート変更 {
+    position: relative;
+    top: -70px;
+    left: 720px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#ゲーム終了 {
+    position: relative;
+    top: 20px;
+    left: 773px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#台変更 {
+    position: relative;
+    top: -70px;
+    left: 590px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#ランダム遊び方 {
+    position: relative;
+    top: 20px;
+    left: 168px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#ランダム説明 {
+    margin-top: 100px;
+    width: 1100px;
+    height: 764px;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 95%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+}
+
+#ランダム説明閉じる {
+    margin-top: 750px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    margin-left: 1050px;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+
+@keyframes reelDown {
+  0% {
+    top: -250px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.reel-animate {
+  animation: reelDown 1s ease-out forwards;
+}
+
+/* 所持金と賭け額表示全体 */
+#ownBetMoney{
+  width: 270px;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+/* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
+  left: 50%; 
+  transform: translateX(200px);
+}
+ 
+/* 所持金 */
+#ownMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+ 
+/* 賭け額 */
+#planBetMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+
+
+#レート選択 {
+    position: relative;
+    top: 250px;
+    left: 300px;
+    width: 600px;
+    height: 70px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M1000 {
+    position: relative;
+    top: 450px;
+    left: 150px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M5000 {
+    position: relative;
+    top: 390px;
+    left: 465px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M10000 {
+    position: relative;
+    top: 330px;
+    left: 780px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#メッセージ {
+    position: relative;
+    top: 500px;
+    left: 700px;
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+#当たり {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 220%;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#収支 {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 200%;
+    font-weight: bold;
+    white-space: nowrap;
+}

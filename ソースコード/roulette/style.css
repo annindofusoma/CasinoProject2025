@@ -1,0 +1,581 @@
+/* 背景、全体 */
+body {
+  background-color: rgb(1, 125, 26);
+  margin: 0;
+  padding: 0;
+  z-index: -10;
+}
+#roulette-container {
+  position: absolute;
+  top: 250px;
+  left: 1230px;
+  width: 610px;
+  height: 610px;
+  overflow: visible;
+}
+
+#roulette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 610px;
+  height: auto;
+  z-index: 1;
+  transform-origin: center center;
+}
+
+#ball {
+  position: absolute;
+  top: 94px;
+  left: 295px;
+  width: 22px;
+  height: auto;
+  z-index: 10; /* rouletteより大きく */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+input#result{
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  font-size: 24px;
+  width: 150px;
+  padding: 5px;
+  text-align: center;
+}
+
+/* 共通要素 */
+button#start,button#ok,button#reset{
+  color: black;
+  border: none;
+  position: absolute;
+  font-family: "游明朝";
+}
+button#end{
+  color: black;
+  border: none;
+  position: absolute;
+}
+
+/* スタートボタン */
+button#start {
+  background-color: antiquewhite;
+  font-size: 55px;
+  top: 330px;
+  left: 40px;
+}
+
+/* OKボタン */
+button#ok {
+  background-color: lightblue;
+  width: 110px;
+  height: 80px;
+  font-size: 50px;
+  top: 330px;
+  left: 1100px;
+  text-align: center;
+
+}
+
+/* リセットボタン */
+button#reset {
+  background-color: lightgray;
+  font-size: 32px;
+  top: 190px;
+  left: 50px;
+}
+
+/* ゲーム終了ボタン */
+button#end {
+  background-color: white;
+  font-size: 30px;
+  top: 40px;
+  left: 50px;
+}
+
+/* 賭けボタン共通項目 */
+button#No1,button#No3,button#No5,button#No7,button#No9,button#No12,button#No14,button#No16,button#No18,button#No19,button#No21,button#No23,button#No25,button#No27,button#No30,button#No32,button#No34,button#No36{
+  background-color: red;
+  color: white;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  font-size: 50px;
+  z-index: 10;
+}
+button#No2,button#No4,button#No6,button#No8,button#No10,button#No11,button#No13,button#No15,button#No17,button#No20,button#No22,button#No24,button#No26,button#No28,button#No29,button#No31,button#No33,button#No35{
+  background-color: black;
+  color: white;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  font-size: 50px;
+  z-index: 10;
+}
+button#Ue2To1,button#Naka2To1,button#Sita2To1{
+  background-color: green;
+  color: white;
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  font-size: 25px;
+  border: solid 3px white;
+}
+button#Hidari1st12,button#Naka2nd12,button#Migi3rd12{
+  background-color: green;
+  color: white;
+  position: absolute;
+  width: 335px;
+  height: 70px;
+  font-size: 50px;
+  border: solid 3px white;
+  bottom: 135px;
+}
+button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Black{
+  background-color: green;
+  color: white;
+  position: absolute;
+  width: 167.5px;
+  height: 70px;
+  font-size: 25px;
+  border: solid 3px white;
+  bottom: 65px;
+}
+
+/* 上下の幅 */
+button#No1,button#No4,button#No7,button#No10,button#No13,button#No16,button#No19,button#No22,button#No25,button#No28,button#No31,button#No34{
+  bottom: 220px;
+}
+button#No2,button#No5,button#No8,button#No11,button#No14,button#No17,button#No20,button#No23,button#No26,button#No29,button#No32,button#No35{
+  bottom: 305px;
+}
+button#No3,button#No6,button#No9,button#No12,button#No15,button#No18,button#No21,button#No24,button#No27,button#No30,button#No33,button#No36{
+  bottom: 390px;
+}
+
+/* 左右の幅 */
+button#No1,button#No2,button#No3,button#Hidari1st12,button#Mae1To18{
+  left: 95px;
+}
+button#No4,button#No5,button#No6{
+  left: 180px;
+}
+button#No7,button#No8,button#No9{
+  left: 265px;
+}
+button#No10,button#No11,button#No12{
+  left: 350px;
+}
+button#No13,button#No14,button#No15{
+  left: 435px;
+}
+button#No16,button#No17,button#No18{
+  left: 520px;
+}
+button#No19,button#No20,button#No21{
+  left: 605px;
+}
+button#No22,button#No23,button#No24{
+  left: 690px;
+}
+button#No25,button#No26,button#No27{
+  left: 775px;
+}
+button#No28,button#No29,button#No30{
+  left: 860px;
+}
+button#No31,button#No32,button#No33{
+  left: 945px;
+}
+button#No34,button#No35,button#No36{
+  left: 1030px;
+}
+button#Sita2To1,button#Naka2To1,button#Ue2To1{
+  left: 1100px;
+}
+/* 間のボタン */
+.上段縦向き button,.中段縦向き button,.下段縦向き button,.上段横向き button,.中段横向き button,.下段横向き button{
+color: rgba(0,0,0,0);
+}
+.上段縦向き {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 390px;
+  left: 165px;
+}
+.上段縦向き button {
+  width: 15px;
+  height: 68px;
+  border: none;
+  font-size: 9px;
+  z-index: 5;
+}
+.中段縦向き {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 305px;
+  left: 165px;
+}
+.中段縦向き button {
+  width: 15px;
+  height: 70px;
+  font-size: 9px;
+  z-index: 5;
+}
+.下段縦向き {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 220px;
+  left: 165px;
+}
+.下段縦向き button {
+  width: 15px;
+  height: 70px;
+  font-size: 9px;
+  z-index: 5;
+}
+.上段横向き {
+  display: flex;
+  justify-content: space-between;
+  width: 1005px;
+  background-color: none;
+  position: absolute;
+  bottom: 375px;
+  left: 95px;
+}
+.上段横向き button {
+  width: 70px;
+  height: 15px;
+  font-size: 9px;
+  z-index: 5;
+}
+.中段横向き {
+  display: flex;
+  justify-content: space-between;
+  width: 1005px;
+  background-color: none;
+  position: absolute;
+  bottom: 290px;
+  left: 95px;
+}
+.中段横向き button {
+  width: 70px;
+  height: 15px;
+  font-size: 9px;
+  z-index: 5;
+}
+.下段横向き {
+  display: flex;
+  justify-content: space-between;
+  width: 1005px;
+  background-color: none;
+  position: absolute;
+  bottom: 205px;
+  left: 95px;
+}
+.下段横向き button {
+  width: 70px;
+  height: 15px;
+  font-size: 9px;
+  z-index: 5;
+}
+.上段四つ角 {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 375px;
+  left: 165px;
+}
+.上段四つ角 button {
+  width: 15px;
+  height: 15px;
+  background-color: orange;
+  font-size: 9px;
+  z-index: 3;
+  color: rgba(0,0,0,0);
+}
+.中段四つ角 {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 290px;
+  left: 165px;
+}
+.中段四つ角 button {
+  width: 15px;
+  height: 15px;
+  background-color: lightpink;
+  font-size: 9px;
+  z-index: 3;
+  color: rgba(0,0,0,0);
+}
+.下段四つ角 {
+  display: flex;
+  justify-content: space-between;
+  width: 865px;
+  background-color: none;
+  position: absolute;
+  bottom: 205px;
+  left: 165px;
+}
+.下段四つ角 button {
+  width: 15px;
+  height: 15px;
+  background-color: aqua;
+  font-size: 9px;
+  z-index: 3;
+  color: rgba(0,0,0,0);
+}
+button#No0and3,button#No0and2,button#No0and1{
+  background-color: white;
+  font-size: 10px;
+  position: absolute;
+  width: 15px;
+  height: 85px;
+  left: 80px;
+  color:rgba(0,0,0,0);
+}
+
+.zeroplus button.selected{
+  background-color: yellow!important;
+}
+
+/* 賭けボタン個別 */
+button#No0{
+  background-color: green;
+  color: white;
+  font-size: 70px;
+  position: absolute;
+  width: 70px;
+  height: 255px;
+  bottom: 205px;
+  left: 10px;
+  border: solid 3px white;
+}
+button#Naka2nd12{
+  left: 430px;
+}
+button#Migi3rd12{
+  left: 765px;
+}
+button#Even{
+  left: 262.5px;
+}
+button#Red{
+  left: 430px;
+}
+button#Black{
+  left: 597.5px;
+}
+button#Odd{
+  left: 765px;
+}
+button#Usiro19To36{
+  left: 932.5px;
+}
+button#No0and1{
+  bottom: 205px;
+}
+button#No0and2{
+  bottom: 290px;
+}  
+button#No0and3{
+  bottom: 375px;
+}
+button#Sita2To1{
+  bottom: 205px;
+}
+button#Naka2To1{
+  bottom: 290px;
+}
+button#Ue2To1{
+  bottom: 375px;
+}
+
+/* 1000,10000のp要素レイアウト */
+#oneThousand > p,#tenThousand > p{
+    background-color: rgb(255, 255, 255);
+    border-style: solid;
+    border-color: black;
+    text-align: center;
+    font-size: 21px;
+    width: 70px;
+    height: 33px;
+}
+/* 1000と10000を横並び */
+#betPrice{
+  position: absolute;
+  display: flex;
+  margin-top: 290px;
+  margin-left: 900px;
+}
+/* 1000と10000の間をあける */
+#oneThousand, #tenThousand{
+  margin: 0px 6px 0px 6px;
+}
+/* 賭け額を増やす上三角 */
+#upLeft,#upRight{
+  background-color: #ff9100;
+  height: 35px;
+  width: 50px;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  margin: 5px 10px 5px 11px;
+  margin-bottom: -10px;
+}
+/* 賭け額を減らす下三角 */
+#downLeft,#downRight{
+  background-color: #00bbff;
+  height: 35px;
+  width: 50px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  margin: 5px 10px 5px 11px;
+  margin-top: -10px;
+}
+/* 所持金と賭け額表示全体 */
+#ownBetMoney{
+  width: 270px;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+  top: 35px;
+/* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
+  left: 73%; 
+  transform: translateX(200px);
+} 
+/* 所持金 */
+#ownMoney{
+  width: 250px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 20px;
+}
+/* 賭け額 */
+#planBetMoney{
+  width: 250px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 20px;
+}
+#betDetails{
+  height: auto;
+  width: 500px;
+  border-style: solid;
+  border-color: black;
+  text-align: left;
+  padding-left: 5px;
+  font-size: 18px;
+  background-color: white;
+  position: absolute;
+  top: 35px;
+  left: 8%;
+  transform: translateX(200px);
+}
+#winningNumberDisplay {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+  font-size: 200px;
+  font-weight: bold;
+  color: gold;
+  background-color: white;
+  padding: 30px 60px;
+  border-radius: 20px;
+  z-index: 100;
+  display: none;
+  text-align: center;
+  box-shadow: 0 0 30px gold;
+  position: absolute;
+  width: 250px;
+  height: 300px;
+}
+button.selected{
+  background-color: yellow;
+}
+button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Black,button#Hidari1st12,button#Naka2nd12,button#Migi3rd12,button#Ue2To1,button#Naka2To1,button#Sita2To1 {
+  z-index: 10;
+}
+.文字ありボタン button.selected {
+  color: yellow!important;
+}
+#winningResultBox{
+  margin-top: 15px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 40px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  width: 500px;
+  height: 90px;
+  position: absolute;
+  top: 280px;
+  left: 340px;
+  line-height: 80px;
+  display: none;
+}
+#betUnitDisplay{
+  text-align: center;
+  font-weight: bold;
+  font-size: 21px;
+  background-color: white;
+  color: #333;
+  width: 180px;
+  height: 70px;
+  position: absolute;
+  top: 150px;
+  left: 960px;
+  overflow-wrap: anywhere;
+  border-style: solid;
+  border-color: black;
+}
+
+#gameover{
+  width: 1930px;
+  height: auto;
+  top: 0px;
+  display: none;
+  /* 画像の背後が見えるように透過 */
+  opacity: 95%;
+  position: absolute;
+  position: fixed;
+  left: 50%;
+  z-index: 100;
+  transform: translateX(-50%);
+}
+ 
+#goclose{
+  margin-top: 800px;
+  position: absolute;
+  position: fixed;
+  display: none;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  height: 45px;
+  width: 100px;
+  z-index: 200;
+}

@@ -1,0 +1,989 @@
+:root { font-size: 16px; }
+
+main {
+    width: 1200px;
+    height: 900px;
+    margin: 0 auto;
+    padding: 5px 5px 5px;
+    box-shadow: 0 0 10px 0 lightgray;
+}
+body {
+
+    background-color: rgb(1, 125, 26);
+
+}
+
+
+img {
+    margin: 0;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
+}
+
+
+#gameover {
+    width: 1930px;
+    height: auto;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 85%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+}
+
+#goclose {
+    margin-top: 760px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+#MERSUS説明画像 {
+    margin-top: 100px;
+    width: 1100px;
+    height: 764px;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 95%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+}
+
+#MERSUS説明閉じる {
+    margin-top: 750px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    margin-left: 1050px;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+#オキドキ説明画像 {
+    margin-top: 100px;
+    width: 1100px;
+    height: 764px;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 95%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+}
+
+#オキドキ説明画像２ {
+    margin-top: 100px;
+    width: 1100px;
+    height: 764px;
+    top: 0px;
+    display: none;
+    /* 画像の背後が見えるように透過 */
+    opacity: 95%;
+    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+}
+
+#オキドキ説明閉じる {
+    margin-top: 750px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    margin-left: 1050px;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+#オキドキ説明次へ {
+    margin-top: 750px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+#オキドキ説明前へ {
+    margin-top: 750px;
+    position: absolute;
+    position: fixed;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    height: 45px;
+    width: 100px;
+    z-index: 9;
+}
+
+
+#筐体上部 {
+    position: relative;
+    margin-left: 50px;
+    margin-top: -270px;
+    background-color: rgb(247, 199, 172);
+    width: 600px;
+    height: 600px;
+    border: 3px solid black;
+}
+
+#筐体上部HANA {
+    position: relative;
+    margin-left: 50px;
+    margin-top: -270px;
+    background: linear-gradient(to bottom, black 0%, black 40%, rgb(122, 0, 57) 70%, rgb(122, 0, 57)100%);
+    width: 600px;
+    height: 600px;
+    border: 3px solid black;
+}
+
+#下パネル {
+    margin-left: 50px;
+    background-color: rgb(191, 191, 191);
+    width: 600px;
+    height: 250px;
+    border: 3px solid black;
+}
+
+#下パネル2 {
+    margin-left: 50px;
+    background: linear-gradient(to bottom, rgb(212, 0, 99), rgb(122, 0, 57), rgb(212, 0, 99)); 
+    width: 600px;
+    height: 250px;
+    border: 3px solid black;
+}
+
+#配当表 {
+    position: absolute;
+    margin-left: 82.5px;
+    margin-top: 20px;
+    height: 180px;
+    width: auto;
+    display: block;
+    z-index: 3;
+}
+
+#左ハナ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    z-index: 5;
+}
+
+#右ハナ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    z-index: 5;
+}
+
+#左ハナ当たり {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    z-index: -1;
+}
+
+#右ハナ当たり {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    z-index: -1;
+}
+
+#左ハナ青 {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#右ハナ青 {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#左花だけ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#右花だけ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#左葉だけ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#右葉だけ {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#左花粉 {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#右花粉 {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 180px;
+    height: 136px;
+    z-index: -1;
+}
+
+#マーブルロゴ {
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 38%;
+    width: 130px;
+    z-index: 4;
+}
+
+
+#リール枠上 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 228.5px;
+    width: 370px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠下 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 462px;
+    width: 370px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠左 {
+    position: absolute;
+    margin-left: 113px;
+    margin-top: 232px;
+    height: 228px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#リール枠右 {
+    position: absolute;
+    margin-left: 483px;
+    margin-top: 232px;
+    height: 228px;
+    border: 2px solid black;
+    z-index: 2;
+}
+
+#枠上隠し {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 58.5px;
+    width: 400px;
+    height: 170px;
+    background-color: rgb(247, 199, 172);
+    z-index: 2;
+}
+
+#枠下隠し {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 466px;
+    width: 400px;
+    height: 100px;
+    background-color: rgb(247, 199, 172);
+    z-index: 2;
+}
+
+#枠上隠し左HANA {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 150px;
+    height: 230px;
+    background-color: black;
+    z-index: 2;
+}
+
+#枠上隠し中HANA {
+    position: absolute;
+    margin-left: 150px;
+    margin-top: 0px;
+    width: 300px;
+    height: 230px;
+    background: radial-gradient(circle, rgb(212, 0, 99), black);
+    z-index: 2;
+}
+
+#枠上隠し右HANA {
+    position: absolute;
+    margin-left: 450px;
+    margin-top: 0px;
+    width: 150px;
+    height: 230px;
+    background-color: black;
+    z-index: 2;
+}
+
+#枠上隠しHANA {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 600px;
+    height: 230px;
+    background-color: black;
+    z-index: 2;
+}
+
+#枠下隠しHANA {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 466px;
+    width: 600px;
+    height: 134px;
+    background: linear-gradient(to bottom, rgb(122, 0, 57), black);
+    z-index: 2;
+}
+
+#枠内白 {
+    position:absolute;
+    margin-left: 115px;
+    margin-top: 228px;
+    width: 370px;
+    height: 234px;
+    background-color: white;
+    z-index: 0;
+}
+
+#下パネルロゴ {
+    margin-left: 13px;
+    margin-top: 65px;
+    height: 50%;
+    width: auto;
+}
+
+#下パネルロゴオキドキ {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    height: auto;
+    width: 600px;
+    z-index: 2;
+}
+
+#下パネル消灯用 {
+    position: absolute;
+    margin-left: -15px;
+    margin-top: -14px;
+    height: 280px;
+    width: 630px;
+    z-index: 1;
+}
+
+#シーサー左 {
+    position: absolute;
+    top: 480px;
+    left: 0px;
+    width: 120px;
+    height: auto;
+    z-index: 5;
+}
+
+#シーサー右 {
+    position: absolute;
+    top: 480px;
+    left: 480px;
+    width: 120px;
+    height: auto;
+    z-index: 5;
+}
+
+#シーサー光 {
+    position: absolute;
+    top: 509px;
+    left: 63.5px;
+    width: 33px;
+    height: auto;
+    z-index: 4;
+}
+
+#シーサー光2 {
+    position: absolute;
+    top: 509px;
+    left: 502.4px;
+    width: 33px;
+    height: 8.25px;
+    z-index: 4;
+}
+
+#リプレイ左 {
+    position: absolute;
+    top: 462.55px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー中 {
+    position: absolute;
+    top: 462.55px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#リプレイ右 {
+    position: absolute;
+    top: 462.55px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル左 {
+    position: absolute;
+    top: 385px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ中 {
+    position: absolute;
+    top: 385px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル右 {
+    position: absolute;
+    top: 385px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７左 {
+    position: absolute;
+    top: 307.45px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７中 {
+    position: absolute;
+    top: 307.45px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#赤７右 {
+    position: absolute;
+    top: 307.45px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ左 {
+    position: absolute;
+    top: 229.9px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#ベル中 {
+    position: absolute;
+    top: 229.9px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#スイカ右 {
+    position: absolute;
+    top: 229.9px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー左 {
+    position: absolute;
+    top: 152.35px;
+    left: 115px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#リプレイ中 {
+    position: absolute;
+    top: 152.35px;
+    left: 239px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+#チェリー右 {
+    position: absolute;
+    top: 152.35px;
+    left: 363px;
+    width: 124px;
+    height: 77.55px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+
+#start {
+    position: absolute;
+    top: 380px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 80, 55);
+    color: black;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+    text-align: center;
+}
+
+#stop1 {
+    position: absolute;
+    top: 495px;
+    left: 137px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#stop2 {
+    position: absolute;
+    top: 495px;
+    left: 261px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#stop3 {
+    position: absolute;
+    top: 495px;
+    left: 385px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 120, 120);
+    border: 2px solid black;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+#レート変更 {
+    position: relative;
+    top: -70px;
+    left: 720px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#ゲーム終了 {
+    position: relative;
+    top: 20px;
+    left: 773px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#台変更 {
+    position: relative;
+    top: -70px;
+    left: 590px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#オキドキ遊び方 {
+    position: relative;
+    top: 20px;
+    left: 168px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#MERSUS遊び方 {
+    position: relative;
+    top: 20px;
+    left: 169px;
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+
+@keyframes reelDown {
+  0% {
+    top: -250px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.reel-animate {
+  animation: reelDown 1s ease-out forwards;
+}
+
+/* 所持金と賭け額表示全体 */
+#ownBetMoney{
+  width: 270px;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+/* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
+  left: 50%; 
+  transform: translateX(200px);
+}
+ 
+/* 所持金 */
+#ownMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+ 
+/* 賭け額 */
+#planBetMoney{
+  width: 200px;
+  border-style: none;
+  text-align: left;
+  padding-left: 10px;
+}
+
+
+#レート選択 {
+    position: relative;
+    top: 250px;
+    left: 300px;
+    width: 600px;
+    height: 70px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M1000 {
+    position: relative;
+    top: 400px;
+    left: 150px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M5000 {
+    position: relative;
+    top: 340px;
+    left: 465px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M10000 {
+    position: relative;
+    top: 280px;
+    left: 780px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M100000 {
+    position: relative;
+    top: 400px;
+    left: 270px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#M1000000 {
+    position: relative;
+    top: 340px;
+    left: 650px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#台選択 {
+    position: relative;
+    top: 250px;
+    left: 300px;
+    width: 600px;
+    height: 70px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
+
+#MERSUS, #MERSUSHome{
+    position: relative;
+    top: 450px;
+    left: 150px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#MISCUP, #MISCUPHome {
+    position: relative;
+    top: 390px;
+    left: 475px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#MABDOKI, #MABDOKIHome {
+    position: relative;
+    top: 330px;
+    left: 800px;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 220%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#メッセージ {
+    position: relative;
+    top: 500px;
+    left: 700px;
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+#当たり {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 220%;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#収支 {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 200%;
+    font-weight: bold;
+    white-space: nowrap;
+}

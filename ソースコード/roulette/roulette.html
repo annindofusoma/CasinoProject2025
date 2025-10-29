@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>ルーレット</title>
+</head>
+
+<body>
+    <button id="start">START</button>
+    <button id="ok">OK</button>
+    <button id="reset">RESET</button>
+    <button id="end">ゲーム終了</button>
+    <div class="文字ありボタン">
+        <button id="No0">0</button>
+        <button id="No1">1</button>
+        <button id="No2">2</button>
+        <button id="No3">3</button>
+        <button id="No4">4</button>
+        <button id="No5">5</button>
+        <button id="No6">6</button>
+        <button id="No7">7</button>
+        <button id="No8">8</button>
+        <button id="No9">9</button>
+        <button id="No10">10</button>
+        <button id="No11">11</button>
+        <button id="No12">12</button>
+        <button id="No13">13</button>
+        <button id="No14">14</button>
+        <button id="No15">15</button>
+        <button id="No16">16</button>
+        <button id="No17">17</button>
+        <button id="No18">18</button>
+        <button id="No19">19</button>
+        <button id="No20">20</button>
+        <button id="No21">21</button>
+        <button id="No22">22</button>
+        <button id="No23">23</button>
+        <button id="No24">24</button>
+        <button id="No25">25</button>
+        <button id="No26">26</button>
+        <button id="No27">27</button>
+        <button id="No28">28</button>
+        <button id="No29">29</button>
+        <button id="No30">30</button>
+        <button id="No31">31</button>
+        <button id="No32">32</button>
+        <button id="No33">33</button>
+        <button id="No34">34</button>
+        <button id="No35">35</button>
+        <button id="No36">36</button>
+        <button id="Ue2To1">2To1</button>
+        <button id="Naka2To1">2To1</button>
+        <button id="Sita2To1">2To1</button>
+        <button id="Hidari1st12">1st 12</button>
+        <button id="Naka2nd12">2nd 12</button>
+        <button id="Migi3rd12">3rd 12</button>
+        <button id="Mae1To18">1To18</button>
+        <button id="Usiro19To36">19To36</button>
+        <button id="Even">EVEN</button>
+        <button id="Odd">ODD</button>
+        <button id="Red">赤</button>
+        <button id="Black">黒</button>
+    </div>
+
+    <div class="上段縦向き">
+        <button id="No3and6">3と6</button>
+        <button id="No6and9">6と9</button>
+        <button id="No9and12">9と12</button>
+        <button id="No12and15">12と15</button>
+        <button id="No15and18">15と18</button>
+        <button id="No18and21">18と21</button>
+        <button id="No21and24">21と24</button>
+        <button id="No24and27">24と27</button>
+        <button id="No27and30">27と30</button>
+        <button id="No30and33">30と33</button>
+        <button id="No33and36">33と36</button>
+    </div>
+    <div class="中段縦向き">
+        <button id="No2and5">2と5</button>
+        <button id="No5and8">5と8</button>
+        <button id="No8and11">8と11</button>
+        <button id="No11and14">11と14</button>
+        <button id="No14and17">14と17</button>
+        <button id="No17and20">17と20</button>
+        <button id="No20and23">20と23</button>
+        <button id="No23and26">23と26</button>
+        <button id="No26and29">26と29</button>
+        <button id="No29and32">29と32</button>
+        <button id="No32and35">32と35</button>
+    </div>
+    <div class="下段縦向き">
+        <button id="No1and4">1と4</button>
+        <button id="No4and7">4と7</button>
+        <button id="No7and10">7と10</button>
+        <button id="No10and13">10と13</button>
+        <button id="No13and16">13と16</button>
+        <button id="No16and19">16と19</button>
+        <button id="No19and22">19と22</button>
+        <button id="No22and25">22と25</button>
+        <button id="No25and28">25と28</button>
+        <button id="No28and31">28と31</button>
+        <button id="No31and34">31と34</button>
+    </div>
+
+    <div class="zeroplus">
+        <button id="No0and3">0と3</button>
+        <button id="No0and2">0と2</button>
+        <button id="No0and1">0と1</button>
+    </div>
+
+    <div class="上段横向き">
+        <button id="No3and2">3と2</button>
+        <button id="No6and5">6と5</button>
+        <button id="No9and8">9と8</button>
+        <button id="No12and11">12と11</button>
+        <button id="No15and14">15と14</button>
+        <button id="No18and17">18と17</button>
+        <button id="No21and20">21と20</button>
+        <button id="No24and23">24と23</button>
+        <button id="No27and26">27と26</button>
+        <button id="No30and29">30と29</button>
+        <button id="No33and32">33と32</button>
+        <button id="No36and35">36と35</button>
+    </div>
+    <div class="中段横向き">
+        <button id="No2and1">2と1</button>
+        <button id="No5and4">5と4</button>
+        <button id="No8and7">8と7</button>
+        <button id="No11and10">11と10</button>
+        <button id="No14and13">14と13</button>
+        <button id="No17and16">17と16</button>
+        <button id="No20and19">20と19</button>
+        <button id="No23and22">23と22</button>
+        <button id="No26and25">26と25</button>
+        <button id="No29and28">29と28</button>
+        <button id="No32and31">32と31</button>
+        <button id="No35and34">35と34</button>
+    </div>
+    <div class="下段横向き">
+        <button id="No3and2and1">3,2,1</button>
+        <button id="No6and5and4">6,5,4</button>
+        <button id="No9and8and7">9,8,7</button>
+        <button id="No12and11and10">12,11,10</button>
+        <button id="No15and14and13">15,14,13</button>
+        <button id="No18and17and16">18,17,16</button>
+        <button id="No21and20and19">21,20,19</button>
+        <button id="No24and23and22">24,23,22</button>
+        <button id="No27and26and25">27,26,25</button>
+        <button id="No30and29and28">30,29,28</button>
+        <button id="No33and32and31">33,32,31</button>
+        <button id="No36and35and34">36,35,34</button>
+    </div>
+    <div class="上段四つ角">
+        <button id="No3and6and5and2">3,6,5,2</button>
+        <button id="No6and9and8and5">6,9,8,5</button>
+        <button id="No9and12and11and8">9,12,11,8</button>
+        <button id="No12and15and14and11">12,15,14,11</button>
+        <button id="No15and18and17and14">15,18,17,14</button>
+        <button id="No18and21and20and17">18,21,20,17</button>
+        <button id="No21and24and23and20">21,24,23,20</button>
+        <button id="No24and27and26and23">24,27,26,23</button>
+        <button id="No27and30and29and26">27,30,29,26</button>
+        <button id="No30and33and32and29">30,33,32,29</button>
+        <button id="No33and36and35and32">33,36,35,32</button>
+    </div>
+    <div class="中段四つ角">
+        <button id="No2and5and4and1">2,5,4,1</button>
+        <button id="No5and8and7and4">5,8,7,4</button>
+        <button id="No8and11and10and7">8,11,10,7</button>
+        <button id="No11and14and13and10">11,14,13,10</button>
+        <button id="No14and17and16and13">14,17,16,13</button>
+        <button id="No17and20and19and16">17,20,19,16</button>
+        <button id="No20and23and22and19">20,23,22,19</button>
+        <button id="No23and26and25and22">23,26,25,22</button>
+        <button id="No26and29and28and25">26,29,28,25</button>
+        <button id="No29and32and31and28">29,32,31,28</button>
+        <button id="No32and35and34and31">32,35,34,31</button>
+    </div>
+    <div class="下段四つ角">
+        <button id="No1~6">1~6</button>
+        <button id="No4~9">4~9</button>
+        <button id="No7~12">7~12</button>
+        <button id="No10~15">10~15</button>
+        <button id="No13~18">13~18</button>
+        <button id="No16~21">16~21</button>
+        <button id="No19~24">19~24</button>
+        <button id="No22~27">22~27</button>
+        <button id="No25~30">25~30</button>
+        <button id="No28~33">28~33</button>
+        <button id="No31~36">31~36</button>
+    </div>
+    <div id="roulette-container">
+        <img id="roulette" src="roulette.png" />
+        <img id="ball" src="ball.png" />
+    </div>
+    <div id=betPrice>
+        <div id=oneThousand>
+            <div id="upLeft"></div>
+            <p>1000</p>
+            <div id="downLeft"></div>
+        </div>
+        <div id=tenThousand>
+            <div id="upRight"></div>
+            <p>10000</p>
+            <div id="downRight"></div>
+        </div>
+    </div>
+    <div id=ownBetMoney>
+        <p id=ownMoney></p>
+        <p id=planBetMoney></p>
+    </div>
+    <!-- 賭け金設定の表示 -->
+    <div id="betUnitDisplay">現在の賭け金設定：1000 MB</div>
+    <div id="betDetails"></div>
+    <div id="winningNumberDisplay">
+    </div>
+    <div id="winningResultBox"></div>
+    <img id=gameover src="gameover.png">
+    <button id=goclose onclick="location.href='../Home/index.html'">閉じる</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
