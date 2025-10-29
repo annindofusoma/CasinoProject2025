@@ -7,6 +7,8 @@ let player = [];
 let table = [];
 const suit = ['spade','clover','dia','heart'];
 const trump = [];
+const yakuList = ['ロイヤルストレートフラッシュ','ストレートフラッシュ','フォーカード','フルハウス',
+    'フラッシュ','ストレート','スリーカード','ツーペア','ワンペア','ハイカード'];
 const dealerHands = document.getElementById('dealer');
 const playerHands = document.getElementById('player');
 const tableCards = document.getElementById('table');
@@ -31,6 +33,8 @@ let gameMode;
 let changeTime = false;
 // テキサスホールデム時、レイズが何回目かで表示が違う
 let raiseTimes = 0;
+// オールインボタンが押されたかどうか
+let betAllin = false;
 
 
 // トランプを作成し、シャッフルする関数
@@ -60,10 +64,12 @@ const giveCard = (place,numCard) => {
     }
 
     // テスト用ーーーーー要削除ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    // dealer = ['heart-10', 'clover-4', 'heart-5', 'dia-6', 'heart-7'];
-    // player = ['clover-6', 'spade-11', 'clover-14', 'dia-3', 'heart-10'];
+    // dealer = ['spade-13', 'clover-6','heart-7', 'spade-7', 'clover-8'];
+    // player = ['spade-6', 'heart-6','clover-6', 'dia-6', 'spade-12'];
+    // table = ['dia-10', 'dia-11','heart-7', 'spade-7', 'clover-8'];
     // trump.length = 0;
-    // trump.unshift('spade-3');
+    // trump.unshift('spade-5');
+    // trump.unshift('spade-2');
     // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 }
 
@@ -81,7 +87,7 @@ const setdealerCard = (numCard) => {
     for (let i = 0; i < numCard; i++){
         let img = document.createElement('img');
         img.id = 'd' + (i + 1);
-          img.src = `Trump/999.png`;
+        img.src = `Trump/999.png`;
         img.height = 110;
         dealerHands.prepend(img);
     }
@@ -122,6 +128,76 @@ const playerCardOpen = (numCard) => {
                 }
             }
         })
+
+        // カードにマウスオーバーイベントを追加
+        img.addEventListener('mouseover', () => {
+            if(changeTime == true) {
+                let [pyaku, ptopNum] = hantei(player);
+                let tehudaSuit = [];
+                let tehudaNum = [];
+
+                // ストレートまたはフラッシュが狙えるか
+                let [straightChange,valueEqual] = straFlaCheck(player);
+
+                // tehuda配列内のスートと数字を分解
+                for(let card of player){
+                    tehudaSuit.push(card.substr(0,card.indexOf('-')));
+                    tehudaNum.push(card.substr(card.indexOf('-') + 1));
+                }
+
+                const ascTehudaNum = tehudaNum.slice();
+
+                // 昇順に並び替える
+                ascTehudaNum.sort((a, b) => a - b);
+                const ascTehudaSuit = tehudaSuit.slice();
+                ascTehudaSuit.sort();
+
+                let img = document.createElement('img');
+                img.id = 'm' + (i + 1);
+                playerHands.prepend(img);
+
+                // player[i]と同じ数字のカードが何枚あるか
+                let countNum = tehudaNum.filter(element => element === tehudaNum[i]).length;
+
+                // 各メッセージを追加、表示する。
+                if (pyaku <= 6){
+                    img.src = 'message/absoluteKeep.png';
+                }else if (countNum >= 2){
+                    img.src = 'message/sameNumKeep.png';
+                }else if (pyaku == 9 && player[i].includes(ptopNum[4]) && tehudaNum[i] >= 10){
+                    img.src = 'message/onepairChange.png';
+                }else if (pyaku == 9 && tehudaNum[i] >= 10){
+                    img.src = 'message/heightCardKeep.png';
+                }else if (pyaku == 9 && tehudaNum[i] < 10){
+                    img.src = 'message/heightCardChange.png';
+                }else if (valueEqual.join('') == 'TTTF' && player[i].includes(ascTehudaSuit[4])){
+                    img.src = 'message/flash.png';
+                }else if (valueEqual.join('') == 'FTTT' && player[i].includes(ascTehudaSuit[0])){
+                    img.src = 'message/flash.png';
+                }else if (valueEqual.join('') == 'TTTF' || valueEqual.join('') == 'FTTT'){
+                    img.src = 'message/flashKeep.png';
+                }else if (straightChange.length == 1 && player[i].includes(straightChange[0])){
+                    img.src = 'message/straight.png';
+                }else if (straightChange.length == 1){
+                    img.src = 'message/straightKeep.png';
+                }else if (pyaku == 7 && countNum==1){
+                    img.src = 'message/threeCard.png';
+                }else if(pyaku == 8 && countNum==1){
+                    img.src = 'message/twopair.png';
+                }else if(tehudaNum[i] >= 10){
+                    img.src = 'message/heightCardKeep.png';
+                }else if(tehudaNum[i] < 10){
+                    img.src = 'message/heightCardChange.png';
+                }
+            }
+        })
+
+        // カードにマウスアウトイベントを追加
+        img.addEventListener('mouseout', () => {
+            if(changeTime == true) {
+                document.getElementById(`m${(i + 1)}`).style.display = "none";
+            }
+        })
     }
 }
 
@@ -141,11 +217,14 @@ fiveCardDraw.addEventListener('click', () => {
 
 const fiveCardDrawSet = () => {
       // ボタンの表示、非表示
-    document.getElementById("betPrice").style.visibility = "visible";
+    document.getElementById("betPrice").style.display = "flex";
     document.getElementById("bet").style.display = "block";
     document.getElementById("fold").style.display = "block";
+    document.getElementById("allin").style.display = "block";
     document.getElementById("gameName").style.display = "block";
     document.getElementById("ownBetMoney").style.display = "block";
+    document.getElementById("help").style.top = "700px";
+    document.getElementById("help").style.transform = "translateX(-500px)";
     document.getElementById('gameName').textContent = 'ファイブカードドロー';
     betDisplay();
     gameSelect.remove();
@@ -153,7 +232,8 @@ const fiveCardDrawSet = () => {
     giveCard(dealer,5);
     giveCard(player,5);
     setdealerCard(5);
-    playerCardOpen(5);  
+    playerCardOpen(5);
+    nowHand();
 }
 
 // テキサスホールデム選択時のクリックイベント
@@ -165,11 +245,15 @@ texasHoldem.addEventListener('click', () => {
 const texasHoldemSet = () => {
     // ボタンの表示、非表示
     document.getElementById("table").style.display = "block";
-    document.getElementById("betPrice").style.visibility = "visible";
+    document.getElementById("betPrice").style.display = "flex";
     document.getElementById("bet").style.display = "block";
+    document.getElementById("allin").style.display = "block";
     document.getElementById("fold").style.display = "block";
     document.getElementById("gameName").style.display = "block";
     document.getElementById("ownBetMoney").style.display = "block";
+    document.getElementById("help").style.top = "700px";
+    document.getElementById("help").style.transform = "translateX(-350px)";
+    document.getElementById("player").style.width = "300px";
     document.getElementById('gameName').textContent = 'テキサスホールデム';
     betDisplay();
     gameSelect.remove();
@@ -180,6 +264,51 @@ const texasHoldemSet = () => {
     setdealerCard(2);
     settableCard(5)
     playerCardOpen(2);
+}
+
+
+// 現在の手と勝率の表示
+const nowHand = () => {
+    let [pyaku, ptopNum] = hantei(player);
+    let winRate = winRateCalc();
+    document.getElementById('nowhand').textContent = '現在の役：' + `${yakuList[pyaku-1]}` + '\n勝率：' + `${winRate.toPrecision(3)}` + ' %';
+    document.getElementById("nowhand").style.display = "block";
+}
+
+
+// 勝率計算
+const winRateCalc = () => {
+    let [pyaku, ptopNum] = hantei(player);
+    let temptrump;
+    let tempdealer;
+    let winTiems = 0;
+
+    //20000回実行
+    for (let i=1; i<=20000; i++){
+        temptrump = trump.concat(dealer);
+        tempdealer = [];
+        for (let j=0; j<5; j++){
+            // プレイヤーの手札以外のトランプをランダムに5枚選び、勝った回数をカウント
+            let ranNum = Math.floor(Math.random() * temptrump.length);
+            tempdealer.push(temptrump[ranNum]);
+            temptrump.splice(ranNum,1);
+        }
+        let [dyaku, dtopNum] = hantei(tempdealer);
+
+        // プレイヤーが勝つとき
+        if (pyaku < dyaku){
+            winTiems = winTiems + 1;
+        }else if (pyaku == dyaku){
+            for (let k=0; k<5; k++){   
+                if (Number(ptopNum[k]) > Number(dtopNum[k])){
+                winTiems = winTiems + 1;
+                break;
+                }
+            }
+        }
+    }
+    let winRate = (winTiems / 20000) * 100;
+    return winRate;
 }
 
 
@@ -225,11 +354,12 @@ bet.addEventListener('click', () => {
     if(gameMode == 'fiveCardDraw'){
         changeTime = true;
         document.getElementById("change").style.display = "block";
-        document.getElementById("betPrice").style.visibility = "hidden";
+        document.getElementById("betPrice").style.display = "none";
         document.getElementById("fold").style.display = "none";
+        document.getElementById("allin").style.display = "none";
         document.getElementById("changeMessage").style.display = "block";
     }else{
-        document.getElementById("betPrice").style.visibility = "visible";
+        document.getElementById("betPrice").style.display = "flex";
         document.getElementById("raise").style.display = "block";
         document.getElementById("fold").style.display = "block";
         for (let i = 4; i > 1; i--){
@@ -240,13 +370,19 @@ bet.addEventListener('click', () => {
     tempBetMoney = betMoney;
     // ベッティングボタンの非表示
     document.getElementById("bet").style.display = "none";
+    
+    // オールインした場合、ベッティングボタン非表示
+    if (tempBetMoney == storage.money){
+        document.getElementById('betPrice').style.display = "none";
+    }
 })
 
 // フォールドのクリックイベント
 fold.addEventListener('click', () => {
-    document.getElementById("betPrice").style.visibility = "hidden";
+    document.getElementById("betPrice").style.display = "none";
     document.getElementById("fold").style.display = "none";
     document.getElementById("raise").style.display = "none";
+    document.getElementById("allin").style.display = "none";
 
     loseResult.innerHTML = '負け<br>-' + tempBetMoney + 'MB';
     loseResult.style.display = "block";
@@ -260,9 +396,21 @@ fold.addEventListener('click', () => {
 // レイズのクリックイベント
 raise.addEventListener('click', () => {
     if(gameMode == 'fiveCardDraw'){
-        document.getElementById("betPrice").style.visibility = "hidden";
+        document.getElementById("betPrice").style.display = "none";
         document.getElementById("fold").style.display = "none";
         document.getElementById("raise").style.display = "none";
+
+
+        // 60%でプレイヤーよりも強い手になる。
+        if (Math.floor(Math.random() * 10) < 6){
+            let [pyaku, ptopNum] = hantei(player);
+            // プレイヤーの役がスリーカード以下の時
+            if(pyaku > 6){
+                fiveCheatDealer();
+                console.log('ディーラーのチート');
+            }
+        }
+
         dealerCardOpen(5);
         winDecide();
     }else{
@@ -273,19 +421,50 @@ raise.addEventListener('click', () => {
         }else if(raiseTimes == 2){
             document.getElementById(`t1`).src = `Trump/${table[0]}.png`;
         }else if(raiseTimes == 3){
-            document.getElementById("betPrice").style.visibility = "hidden";
+            document.getElementById("betPrice").style.display = "none";
             document.getElementById("fold").style.display = "none";
             document.getElementById("raise").style.display = "none";
-
+            document.getElementById("allin").style.display = "none";
 
             // ここにどのカード5枚で役を作るのか決めて、playerとdealerに一番強い役を入れる
-            dealerCardOpen(2);
             player = tehudakettei(player);
+
+            // 60%でプレイヤーよりも強い手になる。
+            if (Math.floor(Math.random() * 10) < 6){
+                let [pyaku, ptopNum] = hantei(player);
+                // プレイヤーの役がスリーカード以下の時
+                if(pyaku > 6){
+                    dealer = texasCheatDealer();
+                    console.log('ディーラーのチート');
+                }
+            }
+            dealerCardOpen(2);
             dealer = tehudakettei(dealer);
             winDecide();
+
+            // プレイヤーの強い役が作れるカード5枚に青の枠線を追加
+            player.forEach(elem => {
+                document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid blue";
+            });
+
+            // ディーラーの強い役が作れるカード5枚に黄の枠線を追加
+            dealer.forEach(elem => {
+                document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid #FFFF55";
+                // プレイヤーとディーラー両方が使用するカードは青と黄両方の枠線
+                if (player.includes(elem)==true){
+                    document.querySelector(`[src*="${elem}"]`).style.borderImageSource = "linear-gradient(to right, blue, #FFFF55)";
+                    document.querySelector(`[src*="${elem}"]`).style.borderImageSlice = "1";
+                }
+            });
         }
     }
     tempBetMoney = betMoney;
+
+    // オールインした場合、ベッティングボタン非表示
+    if (tempBetMoney == storage.money){
+        document.getElementById('betPrice').style.display = "none";
+    }
+
 })
 
 
@@ -301,16 +480,24 @@ change.addEventListener('click', () => {
         }
     }
     // ディーラーのチェンジ前の手確認
-    console.log(dealer);
     dealerChange();
+
+    // チェンジ後の役と勝率
+    nowHand();
 
     changeTime = false;
     // ボタンの表示、非表示
     document.getElementById("change").style.display = "none";
-    document.getElementById("betPrice").style.visibility = "visible";
     document.getElementById("raise").style.display = "block";
     document.getElementById("fold").style.display = "block";
+    document.getElementById("allin").style.display = "block";
     document.getElementById("changeMessage").style.display = "none";
+    document.getElementById("betPrice").style.display = "flex";
+
+    // オールインした場合、ベッティングボタン非表示
+    if (tempBetMoney == storage.money){
+        document.getElementById("betPrice").style.display = "none";
+    }
 })
 
 
@@ -318,75 +505,47 @@ change.addEventListener('click', () => {
 const winDecide = () => {
     let [dyaku, dtopNum] = hantei(dealer);
     let [pyaku, ptopNum] = hantei(player);
+    let result = null;
 
+    // 役ごとの勝敗
     if (Number(pyaku) < Number(dyaku)){
-        winResult.innerHTML = '勝ち<br>+' + betMoney*2 + 'MB';
-        winResult.style.display = "block";
-        storage.money = Number(storage.money) + (betMoney*2);
+        result = "win";
     }else if (Number(pyaku) > Number(dyaku)){
-        loseResult.innerHTML = '負け<br>-' + betMoney + 'MB';
-        loseResult.style.display = "block";
-        storage.money = Number(storage.money) - betMoney;
+        result = "lose";
     }else{
-        if (Number(ptopNum) > Number(dtopNum)){
-            winResult.innerHTML = '勝ち<br>+' + betMoney*2 + 'MB';
-            winResult.style.display = "block";
-            storage.money = Number(storage.money) + (betMoney*2);
-        }else if (Number(ptopNum) < Number(dtopNum)){
-            loseResult.innerHTML = '負け<br>-' + betMoney + 'MB';
-            loseResult.style.display = "block";
-            storage.money = Number(storage.money) - betMoney;
-        }else{
-            document.getElementById("draw").innerHTML = '引き分け<br>+' + 0 + 'MB';
-            document.getElementById("draw").style.display = "block";
+        for (let i=0; i<5; i++){
+            if (Number(ptopNum[i]) > Number(dtopNum[i])){
+                result = "win";
+                break;
+            }else if (Number(ptopNum[i]) < Number(dtopNum[i])){
+                result = "lose";
+                break;
+            }
+        }
+
+        if (result === null){
+            result = "draw";
         }
     }
 
 
-    if (dyaku == 1){
-        document.getElementById('dealeryaku').textContent = 'ロイヤルストレートフラッシュ';
-    }else if (dyaku == 2){
-        document.getElementById('dealeryaku').textContent = 'ストレートフラッシュ';
-    }else if (dyaku == 3){
-        document.getElementById('dealeryaku').textContent = 'フォーカード';
-    }else if (dyaku == 4){
-        document.getElementById('dealeryaku').textContent = 'フルハウス';
-    }else if (dyaku == 5){
-        document.getElementById('dealeryaku').textContent = 'フラッシュ';
-    }else if (dyaku == 6){
-        document.getElementById('dealeryaku').textContent = 'ストレート';
-    }else if (dyaku == 7){
-        document.getElementById('dealeryaku').textContent = 'スリーカード';
-    }else if (dyaku == 8){
-        document.getElementById('dealeryaku').textContent = 'ツーペア';
-    }else if (dyaku == 9){
-        document.getElementById('dealeryaku').textContent = 'ワンペア';
-    }else if (dyaku == 10){
-        document.getElementById('dealeryaku').textContent = 'ハイカード';
+    // 勝敗結果に応じた処理
+    if (result === "win") {
+        winResult.innerHTML = '勝ち<br>+' + betMoney*2 + 'MB';
+        winResult.style.display = "block";
+        storage.money = Number(storage.money) + (betMoney*2);
+    } else if (result === "lose") {
+        loseResult.innerHTML = '負け<br>-' + betMoney + 'MB';
+        loseResult.style.display = "block";
+        storage.money = Number(storage.money) - betMoney;
+    } else if (result === "draw") {
+        document.getElementById("draw").innerHTML = '引き分け<br>+' + 0 + 'MB';
+        document.getElementById("draw").style.display = "block";
     }
 
 
-    if (pyaku == 1){
-        document.getElementById('playeryaku').textContent = 'ロイヤルストレートフラッシュ';
-    }else if (pyaku == 2){
-        document.getElementById('playeryaku').textContent = 'ストレートフラッシュ';
-    }else if (pyaku == 3){
-        document.getElementById('playeryaku').textContent = 'フォーカード';
-    }else if (pyaku == 4){
-        document.getElementById('playeryaku').textContent = 'フルハウス';
-    }else if (pyaku == 5){
-        document.getElementById('playeryaku').textContent = 'フラッシュ';
-    }else if (pyaku == 6){
-        document.getElementById('playeryaku').textContent = 'ストレート';
-    }else if (pyaku == 7){
-        document.getElementById('playeryaku').textContent = 'スリーカード';
-    }else if (pyaku == 8){
-        document.getElementById('playeryaku').textContent = 'ツーペア';
-    }else if (pyaku == 9){
-        document.getElementById('playeryaku').textContent = 'ワンペア';
-    }else if (pyaku == 10){
-        document.getElementById('playeryaku').textContent = 'ハイカード';
-    }
+    document.getElementById('dealeryaku').textContent = `${yakuList[dyaku - 1]}`;
+    document.getElementById('playeryaku').textContent = `${yakuList[pyaku - 1]}`;
 
     document.getElementById('playeryaku').style.display = "block";
     document.getElementById('dealeryaku').style.display = "block";
@@ -418,13 +577,15 @@ const hantei = (tehuda) => {
         tehudaNum.push(card.substr(card.indexOf('-') + 1));
     }
 
-    let [sameSuit,suitTopNum] = suitCheck(tehudaSuit,tehudaNum);
+    let sameSuit = suitCheck(tehudaSuit,tehudaNum);
 
     const royal = royalCheck(tehudaNum);
 
-    let [continuous,conTopNum] = continuousCheck(tehudaNum);
+    let [continuous, conTopNum] = continuousCheck(tehudaNum);
 
     let [pair, pairTopNum] = pairCheck(tehudaNum);
+
+    tehudaNum.sort((a, b) => a - b);
 
     // dealerとplayerで勝敗決定するために数字に当てはめる
     if (sameSuit == true && royal == true){
@@ -436,7 +597,7 @@ const hantei = (tehuda) => {
     }else if (pair == 'fullHouse'){
         return [4, pairTopNum];
     }else if (sameSuit == true){
-        return [5, suitTopNum];
+        return [5, tehudaNum];
     }else if (continuous == true){
         return [6, conTopNum];
     }else if (pair == 'threeCard'){
@@ -446,7 +607,7 @@ const hantei = (tehuda) => {
     }else if (pair == 'onePair'){
         return [9, pairTopNum];
     }else if (pair == 'hightCard'){
-        return [10, pairTopNum];
+        return [10, tehudaNum];
     }
 }
 
@@ -458,10 +619,8 @@ const suitCheck = (tehudaSuit,tehudaNum) => {
     // スートがすべて同じ場合はsameSuitをtrue
     if (tehudaSuit.every(value => value == tehudaSuit[0])){
         sameSuit = true;
-        // 一番強い数字をsuitTopNumに格納
-        suitTopNum = Math.max(...tehudaNum);
     }
-    return [sameSuit,suitTopNum];
+    return sameSuit;
 }
 
 // 10～1の各数字かチェック
@@ -492,7 +651,7 @@ const continuousCheck = (tehudaNum) => {
     if (JSON.stringify(tempConNum) == JSON.stringify(ascTehudaNum)){
         continuous = true;
         // 一番強い数字をsuitTopNumに格納
-        conTopNum = ascTehudaNum[ascTehudaNum.length - 1];
+        conTopNum = [14,2,3,4,5];
         return [continuous,conTopNum];
     }
     // 連続した数字ではなかった場合、戻り値を返して即終了
@@ -514,7 +673,9 @@ const continuousCheck = (tehudaNum) => {
 
 // 同じ数字のペアチェック
 const pairCheck = (tehudaNum) => {
+    let tempNum;
     const valueEqual = [];
+    let nokori;
 
     // 昇順に並び替える
     const ascTehudaNum = tehudaNum.slice();
@@ -533,30 +694,47 @@ const pairCheck = (tehudaNum) => {
     let pair,pairTopNum;
     if (valueEqual.join('') == 'TTTF' || valueEqual.join('') == 'FTTT') {
         pair = 'fourCard';
+        tempNum = ascTehudaNum[valueEqual.lastIndexOf('T')];
+        pairTopNum = [tempNum, tempNum, tempNum, tempNum, ascTehudaNum[valueEqual.lastIndexOf('F')]];
 
-    } else if (valueEqual.join('') == 'TTFT' || valueEqual.join('') == 'TFTT') {
+    } else if (valueEqual.join('') == 'TTFT') {
         pair = 'fullHouse';
+        tempNum = ascTehudaNum[0];
+        pairTopNum = [tempNum, tempNum, tempNum, ascTehudaNum[4], ascTehudaNum[4]];
+
+    } else if (valueEqual.join('') == 'TFTT'){
+        pair = 'fullHouse';
+        tempNum = ascTehudaNum[valueEqual.lastIndexOf('T')];
+        pairTopNum = [tempNum, tempNum, tempNum, ascTehudaNum[0],  ascTehudaNum[0]];
 
     } else if (valueEqual.join('') == 'TTFF' || valueEqual.join('') == 'FTTF' || valueEqual.join('') == 'FFTT') {
         pair = 'threeCard';
+        tempNum = ascTehudaNum[valueEqual.lastIndexOf('T')];
+        pairTopNum = [tempNum, tempNum, tempNum];
+        nokori = ascTehudaNum.filter(item => ascTehudaNum.indexOf(item) === ascTehudaNum.lastIndexOf(item));
+        pairTopNum.push(nokori[1]);
+        pairTopNum.push(nokori[0]);
 
     } else if (valueEqual.join('') == 'TFTF' || valueEqual.join('') == 'TFFT' || valueEqual.join('') == 'FTFT')  {
         pair = 'twoPair';
+        tempNum = ascTehudaNum[valueEqual.lastIndexOf('T')];
+        let nexttempNum = ascTehudaNum[valueEqual.indexOf('T')];
+        pairTopNum = [tempNum, tempNum, nexttempNum, nexttempNum];
+        nokori = ascTehudaNum.filter(item => ascTehudaNum.indexOf(item) === ascTehudaNum.lastIndexOf(item));
+        pairTopNum.push(nokori[0]);
 
     } else if (valueEqual.join('') !== 'FFFF') {
         pair = 'onePair';
+        tempNum = ascTehudaNum[valueEqual.lastIndexOf('T')];
+        pairTopNum = [tempNum, tempNum];
+        nokori = ascTehudaNum.filter(item => ascTehudaNum.indexOf(item) === ascTehudaNum.lastIndexOf(item));
+        pairTopNum.push(nokori[2]);
+        pairTopNum.push(nokori[1]);
+        pairTopNum.push(nokori[0]);
 
     } else {
         pair = 'hightCard';
-    }
-    
-    // 各役にあわせた強い数字
-    if (valueEqual.join('') == 'TTFT'){
-        pairTopNum = ascTehudaNum[0];
-    }else if (valueEqual.lastIndexOf('T') !== -1){
-        pairTopNum = ascTehudaNum[valueEqual.lastIndexOf('T')]; 
-    }else{
-        pairTopNum = ascTehudaNum[4];
+        pairTopNum = ascTehudaNum.sort((a, b) => b - a);
     }
 
     return [pair,pairTopNum];
@@ -576,6 +754,8 @@ document.getElementById("restart").addEventListener('click', () => {
     document.getElementById("table").innerHTML = '';
     document.getElementById('playeryaku').style.display = "none";
     document.getElementById('dealeryaku').style.display = "none";
+    document.getElementById('betPrice').style.display = "flex";
+    document.getElementById('bettingButton').style.marginTop = '0px';
     player = [];
     dealer = [];
     table = [];
@@ -583,6 +763,8 @@ document.getElementById("restart").addEventListener('click', () => {
     changeSelect.length = 0;
     raiseTimes = 0;
     tempBetMoney = 1000;
+    betAllin = false;
+    document.getElementById('allin').textContent = 'オールイン';
 
     betMoney = 1000;
 
@@ -598,25 +780,29 @@ document.getElementById("restart").addEventListener('click', () => {
 const tehudakettei = (place) => {
     let allCard;
     let yaku = 11;
-    let topNum = 1;
+    let sumTopNum = 1;
     let tempPlace = [];
+    let topNum = [];
 
     // テーブルと手札を一つの配列にする
-    const empAllCards = place.concat(table);
+    const tempAllCards = place.concat(table);
 
     for (let i=0; i<7; i++){
         for (let j=i+1; j<7; j++){
             // 配列をコピーする
-            allCard = [...empAllCards];
+            allCard = [...tempAllCards];
             // 7つから2つを削除し、5枚にする
             allCard.splice(i, 1);
             allCard.splice(j-1, 1);
             // 5枚にしたカードの強さを調べる
             let [tempyaku, temptopNum] = hantei(allCard);
-            // tempyakuのほうが強い場合、強い手札を保存
-            if(Number(yaku) > Number(tempyaku) || (Number(yaku) == Number(tempyaku) && Number(topNum) < Number(temptopNum))) {
+            // 合計
+            let tempsumTopNum = temptopNum.map(Number).reduce((acc, val) => acc + val, 0);
+            // tempyakuのほうが強い場合、強い手札を保存し、同役の場合、数値の合計が大きい手札を保存
+            if(Number(yaku) > Number(tempyaku) || (Number(yaku) == Number(tempyaku) && sumTopNum < tempsumTopNum)) {
                 yaku = tempyaku;
-                topNum = temptopNum;
+                sumTopNum = tempsumTopNum;
+                topNum = [...temptopNum];
                 tempPlace = [...allCard];
             }
         }
@@ -631,8 +817,6 @@ const dealerChange = () => {
     let [yaku,topNum] = hantei(dealer);
     const tehudaSuit = [];
     const tehudaNum = [];
-    const valueEqual = [];
-    const sameSuit = [];
 
     // dealer配列内のスートと数字を分解
     for(let card of dealer){
@@ -647,9 +831,75 @@ const dealerChange = () => {
     const ascTehudaSuit = tehudaSuit.slice();
     ascTehudaSuit.sort();
 
+    // ストレートまたはフラッシュが狙えるか
+    let [straightChange,valueEqual] = straFlaCheck(dealer);
 
-    // ストレートが狙えるか
+    // 同じ数字がある時(ワンペア、ツーペア、スリーカード)は同じ数字以外を1枚変更
+    if (7 <= yaku && yaku <= 9){
+        const uniqueItems = ascTehudaNum.filter(item => ascTehudaNum.indexOf(item) === ascTehudaNum.lastIndexOf(item));
+        dealer.splice(tehudaNum.indexOf(uniqueItems[0]), 1);
+        dealer.splice(tehudaNum.indexOf(uniqueItems[0]), 0, trump[0]);
+        trump.shift();
+
+    // 同じスートが4つある時、残りの一つをチェンジ
+    }else if (yaku == 10){
+        if(valueEqual.join('') == 'TTTF'){
+            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[4]), 1);
+            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[4]), 0, trump[0]);
+            trump.shift();
+
+            // console.log('同じスートが4つで後交換');
+        }else if(valueEqual.join('') == 'FTTT'){
+            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[0]), 1);
+            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[0]), 0, trump[0]);
+            trump.shift();
+
+            // console.log('同じスートが4つで前交換');
+
+        // あと一枚でストレートが狙える時
+        }else if (straightChange.length == 1){
+            dealer.splice(tehudaNum.indexOf(straightChange[0]), 1);
+            dealer.splice(tehudaNum.indexOf(straightChange[0]), 0, trump[0]);
+            trump.shift();
+
+            // console.log('あと一枚でストレート');
+
+        // 弱いカード二枚をチェンジ
+        }else{
+            dealer.splice(tehudaNum.indexOf(ascTehudaNum[0]), 1);
+            dealer.splice(tehudaNum.indexOf(ascTehudaNum[0]), 0, trump[0]);
+            trump.shift();
+
+            dealer.splice(tehudaNum.indexOf(ascTehudaNum[1]), 1);
+            dealer.splice(tehudaNum.indexOf(ascTehudaNum[1]), 0, trump[0]);
+            trump.shift();
+
+            // console.log('弱い二枚を交換');
+        }
+    }
+}
+
+
+// ストレートまたはフラッシュが狙えるか
+const straFlaCheck = (tehuda) => {
+    const valueEqual = [];
     let straightChange = [];
+    const tehudaSuit = [];
+    const tehudaNum = [];
+
+    // tehuda配列内のスートと数字を分解
+    for(let card of tehuda){
+        tehudaSuit.push(card.substr(0,card.indexOf('-')));
+        tehudaNum.push(card.substr(card.indexOf('-') + 1));
+    }
+
+    const ascTehudaNum = tehudaNum.slice();
+
+    // 昇順に並び替える
+    ascTehudaNum.sort((a, b) => a - b);
+    const ascTehudaSuit = tehudaSuit.slice();
+    ascTehudaSuit.sort();
+
     outerLoop:
     for (let k=4; k < 13; k++){
         let straightCheck = [k-2, k-1, k, k+1, k+2];
@@ -666,7 +916,6 @@ const dealerChange = () => {
         }
     }
 
-
     // 同じスートがあるかどうか
     for (let i = 0; i < 4; i++){
         if (ascTehudaSuit[i] == ascTehudaSuit[i+1]){
@@ -675,50 +924,97 @@ const dealerChange = () => {
             valueEqual.push('F');
         }
     }
-    
-    console.log(straightChange);
 
-    // 同じ数字がある時(ワンペア、ツーペア、スリーカード)は同じ数字以外を1枚変更
-    if (7 <= yaku && yaku <= 9){
-        const uniqueItems = ascTehudaNum.filter(item => ascTehudaNum.indexOf(item) === ascTehudaNum.lastIndexOf(item));
-        dealer.splice(tehudaNum.indexOf(uniqueItems[0]), 1);
-        dealer.splice(tehudaNum.indexOf(uniqueItems[0]), 0, trump[0]);
-        trump.shift();
-
-    // 同じスートが4つある時、残りの一つをチェンジ
-    }else if (yaku == 10){
-        if((valueEqual.join('') == 'TTTF')){
-            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[4]), 1);
-            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[4]), 0, trump[0]);
-            trump.shift();
-
-            console.log('同じスートが4つで後交換');
-        }else if(valueEqual.join('') == 'FTTT'){
-            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[0]), 1);
-            dealer.splice(tehudaSuit.indexOf(ascTehudaSuit[0]), 0, trump[0]);
-            trump.shift();
-
-            console.log('同じスートが4つで前交換');
-
-        // あと一枚でストレートが狙える時
-        }else if (straightChange.length == 1){
-            dealer.splice(tehudaNum.indexOf(straightChange[0]), 1);
-            dealer.splice(tehudaNum.indexOf(straightChange[0]), 0, trump[0]);
-            trump.shift();
-
-            console.log('あと一枚でストレート');
-
-        // 弱いカード二枚をチェンジ
-        }else{
-            dealer.splice(tehudaNum.indexOf(ascTehudaNum[0]), 1);
-            dealer.splice(tehudaNum.indexOf(ascTehudaNum[0]), 0, trump[0]);
-            trump.shift();
-
-            dealer.splice(tehudaNum.indexOf(ascTehudaNum[1]), 1);
-            dealer.splice(tehudaNum.indexOf(ascTehudaNum[1]), 0, trump[0]);
-            trump.shift();
-
-            console.log('弱い二枚を交換');
-        }
-    }
+    return [straightChange,valueEqual];
 }
+
+
+// オールイン選択時のクリックイベント
+document.getElementById('allin').addEventListener('click', () => {
+    if (betAllin == false){
+        betMoney = storage.money;
+        betDisplay();
+        document.getElementById('allin').textContent = '最低ベット額';
+        betAllin = true;
+    }else{
+        betMoney = tempBetMoney;
+        betDisplay();
+        document.getElementById('allin').textContent = 'オールイン';
+        betAllin = false;
+    }
+})
+
+
+// ルール確認アイコンのマウスオーバーイベント
+document.getElementById('ruleIcon').addEventListener('mouseover', () => {
+    document.getElementById('rule').style.display = "block";
+})
+
+
+// ルール確認アイコンのマウスアウトイベント
+document.getElementById('ruleIcon').addEventListener('mouseout', () => {
+    document.getElementById('rule').style.display = "none";
+})
+
+
+// 役一覧確認アイコンのマウスオーバーイベント
+document.getElementById('yakuIcon').addEventListener('mouseover', () => {
+    document.getElementById('yaku').style.display = "block";
+})
+
+
+// 役一覧確認アイコンのマウスアウトイベント
+document.getElementById('yakuIcon').addEventListener('mouseout', () => {
+    document.getElementById('yaku').style.display = "none";
+})
+
+
+// ディーラーが勝つための手札操作(ファイブカードドロー)
+const fiveCheatDealer = () => {
+    let tempdealer = [];
+    let temptrump = trump.slice();
+    let ram;
+    let [dyaku, dtopNum] = hantei(dealer);
+    let [pyaku, ptopNum] = hantei(player);
+    tempdealer = [...dealer];
+
+    while(dyaku>pyaku || (dyaku==pyaku && dtopNum>=ptopNum)){
+        temptrump = trump.slice();
+        for(let i=0; i<5; i++){
+            ram = Math.floor(Math.random() * temptrump.length);
+            tempdealer[i] = temptrump[ram];
+            temptrump.splice(ram-1,1);
+        }
+        [dyaku, dtopNum] = hantei(tempdealer);
+    }
+    dealer = [...tempdealer];
+}
+
+
+// ディーラーが勝つための手札操作(テキサスホールデム)
+const texasCheatDealer = () => {
+    let tempdealer = [];
+    let temptrump = trump.slice();
+    let ram;
+    let dealerRet;
+    tempdealer = [...dealer];
+    let tempdealer5 = tehudakettei(tempdealer);
+    let [dyaku, dtopNum] = hantei(tempdealer5);
+    let [pyaku, ptopNum] = hantei(player);
+
+    while(dyaku>pyaku || (dyaku==pyaku && dtopNum>=ptopNum)){
+        temptrump = trump.slice();
+        tempdealer = [];
+        for(let i=0; i<2; i++){
+            ram = Math.floor(Math.random() * temptrump.length);
+            tempdealer[i] = temptrump[ram];
+            temptrump.splice(ram-1,1);
+        }
+        tempdealer5 = tehudakettei(tempdealer);
+        [dyaku, dtopNum] = hantei(tempdealer5);
+    }
+
+    dealer = [...tempdealer5];
+    return tempdealer;
+}
+

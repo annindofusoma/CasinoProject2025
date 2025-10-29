@@ -4,11 +4,20 @@
   font-weight: bolder;
  }
 
+img{
+  padding: 0;
+  margin: 0px 5px 0px 5px;
+  height: 150px;
+}
+
 main {
   width: 80%;
   max-width: 100;
   height: 1000px;
   margin: 0 auto;
+/* 真ん中(left50%)から200px右 */
+  left: 50%; 
+  transform: translateX(0px);
 }
 
 p {
@@ -23,21 +32,17 @@ p {
   text-align: center;
 }
 
-img {
-  padding: 0px 10px 0px 10px;
-  height: 150px;
-}
-
 #trump{
   margin-top: 20px;
   text-align: center;
 }
 
 #dealer{
-  padding: 280px 0px 0px 0px;
-  transform: translate(-50%, -50%);
+  padding: 0;
+  margin: 50px auto 0 auto;
+  transform: translate(-50%, 0);
   left: 50%;
-  position: fixed;
+  position: absolute;
   display: flex; 
   justify-content: center;
 }
@@ -46,10 +51,10 @@ img {
   top: 200px;
   width: 650px;
   height: 150px;
-  margin: 500px 0px 20px 0px;
-  transform: translate(-50%, -50%);
+  margin: 400px 0px 20px 0px;
+  transform: translate(-50%, 0);
   left: 50%;
-  position: fixed;
+  position: absolute;
   display: flex; 
   justify-content: center;
 }
@@ -58,10 +63,10 @@ img {
   top: 200px;
   width: 650px;
   height: 150px;
-  margin: 230px 0px 20px 0px;
-  transform: translate(-50%, -50%);
+  margin: 130px 0px 20px 0px;
+  transform: translate(-50%, 0);
   left: 50%;
-  position: fixed;
+  position: absolute;
   display: flex; 
   justify-content: center;
   display: none;
@@ -72,7 +77,6 @@ img {
   position: absolute;
   display: none;
   top: 400px;
-  position: fixed;
   left: 50%; /* 横方向の中央に配置 */
   transform: translateX(-50%);
 }
@@ -84,6 +88,9 @@ img {
 #gameSelect{
   text-align: center;
   margin: 80px 10px 0px 10px;
+  position: absolute;
+  left: 50%; /* 横方向の中央に配置 */
+  transform: translateX(-50%);
 }
 
 #fiveCardDraw{
@@ -119,10 +126,22 @@ img {
   width: 230px;
   left: 50%; 
   transform: translateX(-300px);
-  position: fixed;
+  position: absolute;
 }
 
-/* -----------------------ここから--------------------------------------------- */
+#nowhand{
+  width: 390px;
+  background-color: white;
+  position: absolute;
+  top: 500px;
+  /* top: 525px; */
+/* 真ん中(left50%)から200px右 */
+  left: 50%; 
+  transform: translateX(240px);
+  white-space: pre-wrap;
+  display: none;
+}
+
 #ownBetMoney{
   width: 270px;
   display: none;
@@ -133,7 +152,7 @@ img {
 /* 真ん中(left50%)から200px右 */
   left: 50%; 
   transform: translateX(200px);
-  position: fixed;
+  position: absolute;
 }
 
 #ownMoney{
@@ -149,15 +168,21 @@ img {
   text-align: left;
   padding-left: 10px;
 }
-/* -----------------------ここまで--------------------------------------------- */
 
+#allin{
+  width: 130px;
+  height: 30px;
+  font-size: 17px;
+  margin-left: 10px;
+  position: relative; /* relativeを使う場合、topを調整する */
+  top: 30px; /* 下方向に20pxずらします */
+}
 
-/* ---------------ここから----------------------------------------------------------------- */
 #betting {
   /* 以下topとleft(中央から340px右)で位置変更 */
-  top: 550px;
+  top: 600px;
   left: calc(50% + 340px);
-  position: fixed; /* 位置固定、拡大縮小でも変わらない */
+  position: absolute; /* 位置固定、拡大縮小でも変わらない */
   text-align: center;
 }
 
@@ -186,13 +211,11 @@ img {
   margin: 5px 10px 5px 11px;
 }
 
-/* --------------------------ここまで---------------------------------------------------- */
-
 #betPrice{
-  visibility: hidden;
+  display: none;
 }
 
-#bet,#fold,#raise,#change{
+#bet,#fold,#raise,#change,#allin{
   display: none;
   margin-top: 20px;
 
@@ -200,6 +223,7 @@ img {
 
 #bettingButton{
   text-align: center;
+  width: 200px;
 }
 
 #bet{
@@ -223,11 +247,12 @@ img {
   margin-left: 32px;
 }
 
+
 #change{
   width: 100px;
   height: 30px;
   font-size: 17px;
-  margin-top: 0px;
+  margin-top: 70px;
   margin-left: 30px;
 }
 
@@ -238,7 +263,7 @@ img {
 #resultBet {
   top: 650px;
   left: calc(50% + 340px);
-  position: fixed;
+  position: absolute;
   text-align: center;
 }
 
@@ -272,21 +297,21 @@ img {
 }
 
 #resultButton{
-  margin-top: 615px;
+  margin-top: 550px;
   right: calc(50% + 360px);
-  position: fixed;
+  position: absolute;
   text-align: center;
 }
 
 #gameover{
   width: 1000px;
   height: auto;
-  top: 180px;
+  top: 150px;
   display: none;
   /* 画像の背後が見えるように透過 */
-  opacity: 85%;
+  opacity: 80%;
   position: absolute;
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%); 
 }
@@ -294,7 +319,7 @@ img {
 #goclose{
   margin-top: 560px;
   position: absolute;
-  position: fixed;
+  position: absolute;
   display: none;
   left: 50%;
   transform: translateX(-50%); 
@@ -308,7 +333,7 @@ img {
   width: 400px;
   height: 40px;
   font-size: 25px;
-  position: fixed;
+  position: absolute;
   text-align: center;
   left: 50%; /* 横方向の中央に配置 */
   transform: translateX(-50%);
@@ -319,9 +344,83 @@ img {
 }
 
 #dealeryaku{
-  top: 145px;
+  top: 122px;
 }
 
 #playeryaku{
-  top: 680px;
+  top: 654px;
+}
+
+#yakuIcon,#ruleIcon{
+  cursor: pointer;
+  width:50px;
+  height: 50px;
+  margin: 0;
+  padding: 0px 10px 0px 10px;
+}
+
+#yakuhelp,#rulehelp{
+  margin: 0%;
+}
+
+#yaku,#rule{
+  width: 900px;
+  height: auto;
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%); 
+}
+
+#help {
+  display: flex;
+  justify-content: center;
+  left: 50%; 
+  transform: translateX(170px);
+  position: absolute;
+  top: 70px;
+}
+
+#text{
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  margin: 0px;
+}
+
+#m1,#m2,#m3,#m4,#m5{
+  width: auto;
+  height: 80px;
+  position: absolute;
+}
+
+#m1{
+  top: -30px;
+  left: 50%;
+  transform: translateX(220px); 
+}
+
+#m2{
+  top: -30px;
+  left: 50%;
+  transform: translateX(110px); 
+}
+
+#m3{
+  top: -30px;
+  left: 50%;
+  transform: translateX(-5px); 
+}
+
+#m4{
+  top: -30px;
+  left: 50%;
+  transform: translateX(-125px); 
+}
+
+#m5{
+  top: -30px;
+  left: 50%;
+  transform: translateX(-240px); 
 }

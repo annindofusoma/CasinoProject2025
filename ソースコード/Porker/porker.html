@@ -19,6 +19,16 @@
 
     <div id=topDisplay>
       <p id=gameName></p>
+      <div id="help">
+        <div id="rulehelp">
+          <img id="ruleIcon" src="hint/ruleIcon.png">
+          <p id="text">ルール</p>
+        </div>
+        <div id="yakuhelp">  
+          <img id="yakuIcon" src="hint/yakuIcon.png">
+          <p id="text">役一覧</p>
+        </div>
+      </div>
       <div id=ownBetMoney>
         <p id=ownMoney></p>
         <p id=planBetMoney></p>
@@ -37,6 +47,9 @@
       </div>
     </div>
 
+    <p id="nowhand"></p>
+
+
     <div id = betting>
       <div id = betPrice>
         <div id = oneThousand>
@@ -49,6 +62,7 @@
           <p>10000</p>
           <div id = "downRight"></div>
         </div>
+        <button id=allin>オールイン</button>
       </div>
       <div id=bettingButton>
         <button id=bet>ベット</button>
@@ -75,7 +89,10 @@
         <button id=gameEndResult onclick="location.href='../Home/index.html'">ゲーム終了</button>
       </dim>
     </dim>
-
+          
+    
+    <img id="rule" src="hint/rule.png">
+    <img id="yaku" src="hint/yaku.png">
     <img id=gameover src="gameover.png">
     <button id=goclose onclick="location.href='../Home/index.html'">閉じる</button>
 
