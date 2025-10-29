@@ -80,9 +80,8 @@ button#ok {
   top: 330px;
   left: 1100px;
   text-align: center;
-
+  z-index: 10;
 }
-
 /* リセットボタン */
 button#reset {
   background-color: lightgray;
@@ -100,6 +99,7 @@ button#end {
 }
 
 /* 賭けボタン共通項目 */
+
 button#No1,button#No3,button#No5,button#No7,button#No9,button#No12,button#No14,button#No16,button#No18,button#No19,button#No21,button#No23,button#No25,button#No27,button#No30,button#No32,button#No34,button#No36{
   background-color: red;
   color: white;
@@ -412,7 +412,7 @@ button#Ue2To1{
 }
 
 /* 1000,10000のp要素レイアウト */
-#oneThousand > p,#tenThousand > p{
+#oneThousand > p,#tenThousand > p,#onehundredThousand>p{
     background-color: rgb(255, 255, 255);
     border-style: solid;
     border-color: black;
@@ -426,14 +426,14 @@ button#Ue2To1{
   position: absolute;
   display: flex;
   margin-top: 290px;
-  margin-left: 900px;
+  margin-left: 800px;
 }
 /* 1000と10000の間をあける */
-#oneThousand, #tenThousand{
+#oneThousand, #tenThousand, #onehundredThousand{
   margin: 0px 6px 0px 6px;
 }
 /* 賭け額を増やす上三角 */
-#upLeft,#upRight{
+#upLeft,#upRight,#superHigh{
   background-color: #ff9100;
   height: 35px;
   width: 50px;
@@ -442,7 +442,7 @@ button#Ue2To1{
   margin-bottom: -10px;
 }
 /* 賭け額を減らす下三角 */
-#downLeft,#downRight{
+#downLeft,#downRight,#superLow{
   background-color: #00bbff;
   height: 35px;
   width: 50px;
@@ -480,7 +480,7 @@ button#Ue2To1{
 }
 #betDetails{
   height: auto;
-  width: 500px;
+  width: 530px;
   border-style: solid;
   border-color: black;
   text-align: left;
@@ -489,27 +489,71 @@ button#Ue2To1{
   background-color: white;
   position: absolute;
   top: 35px;
-  left: 8%;
+  left: 2.5%;
   transform: translateX(200px);
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
-#winningNumberDisplay {
+#betDetails::-webkit-scrollbar{
+  width: 6px;
+}
+#betDetails::-webkit-scrollbar-track{
+  background: #f0f0f0;
+}
+#betDetails::-webkit-scrollbar-thumb{
+  background: #888;
+  border-radius: 3px;
+}
+#betDetails::-webkit-scrollbar-thumb:hover{
+  background: #555;
+}
+
+#winningNumberDisplay{
   position: absolute;
   top: 40%;
   left: 70%;
+  width: 250px;
+  height: 300px;
   font-size: 200px;
   font-weight: bold;
-  color: gold;
-  background-color: white;
+  color: black;
+  background-color: whitesmoke;
   padding: 30px 60px;
   border-radius: 20px;
   z-index: 100;
   display: none;
   text-align: center;
-  box-shadow: 0 0 30px gold;
-  position: absolute;
-  width: 250px;
-  height: 300px;
+  box-shadow: 0 0 10px black;
+  transition: all 0.3s ease;
 }
+#winningNumberDisplay.rainbow {
+  color: gold;
+  box-shadow: 0 0 30px gold;
+  animation: rainbowText 0.8s linear infinite,rainbowBorder 1s linear infinite;
+}
+@keyframes rainbowText {
+  0%   { color: blue; }
+  14%  { color: indigo; }
+  28%  { color: violet; }
+  42%  { color: red; }
+  57%  { color: orange; }
+  71%  { color: yellow; }
+  85%  { color: green; }
+  100% { color: blue; }
+}
+@keyframes rainbowBorder{
+  0% { border-color: red; box-shadow: 0 0 900px red;}
+  14%{ border-color: orange; box-shadow: 0 0 900px orange;}
+  28%{ border-color: yellow; box-shadow: 0 0 900px yellow;}
+  42%{ border-color: green; box-shadow: 0 0 900px green;}
+  57%{ border-color: blue; box-shadow: 0 0 900px blue;}
+  71%{ border-color: indigo; box-shadow: 0 0 900px indigo;}
+  85%{ border-color: violet; box-shadow: 0 0 900px violet;}
+  100%{ border-color: red; box-shadow: 0 0 900px red;}
+}
+
 button.selected{
   background-color: yellow;
 }
@@ -525,17 +569,18 @@ button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Blac
   border: 2px solid black;
   border-radius: 8px;
   background-color: #f9f9f9;
-  font-size: 40px;
+  font-size: 38px;
   font-weight: bold;
   color: #333;
   text-align: center;
-  width: 500px;
-  height: 90px;
+  width: 360px;
+  height: 80px;
   position: absolute;
-  top: 280px;
-  left: 340px;
+  top: 350px;
+  left: 280px;
   line-height: 80px;
   display: none;
+  z-index: 100;
 }
 #betUnitDisplay{
   text-align: center;
@@ -578,4 +623,127 @@ button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Blac
   height: 45px;
   width: 100px;
   z-index: 200;
+}
+#allIn{
+  position: absolute;
+  text-align: center;
+  font-size: 30px;
+  background-color: crimson ;
+  color: gold;
+  width: 120px;
+  height: 60px;
+  position: absolute;
+  top: 240px;
+  left: 1100px;
+  border: none;
+   font-family: "游明朝";
+}
+
+.win-gif{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 99;
+  width: 1000px;
+  pointer-events: none;
+}
+
+
+.coin{
+  width: 70px;
+  height: 70px;
+  background-image: url('coin.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%,-100px)scale(0.5);
+  z-index: 200;
+  animation: dropCoin 0.2s cubic-bezier(0.25, 23.46, 0.45, 23.94)forwards;
+  opacity: 0;
+}
+@keyframes dropCoin{
+  0%{ transform: translate(-50%,-100px)scale(0.5);opacity: 0;}
+  100%{ transform: translate(-50%,0)scale(1);opacity: 1;}
+}
+
+.remove-bet{
+  margin-left: 10px;
+  border: none;
+  background: transparent;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.remove-bet:hover{
+  transform: scale(1.2);
+}
+
+
+#rule,#close{
+padding: 10px 20px;
+font-size: 20px;
+cursor: pointer;
+position: absolute;
+top: 5%;
+left: 75%;
+}
+
+#close{
+  display: none;
+}
+
+#rouletterule{
+  display: none;
+  top: 30px;
+  left: 60px;
+  width: 1200px;
+  height: auto;
+  border-radius: 8px;
+  cursor: default;
+  z-index: 510;
+  position: absolute;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: transparent;
+  z-index: 500;
+}
+
+#kaneki {
+  position: fixed; /* 絶対位置よりも固定の方が動きが安定 */
+  top: -600px; /* 画面外（上）からスタート */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  z-index: 100;
+}
+
+@keyframes fall {
+  0% {
+    top: -600px;          /* 画面の外から */
+    opacity: 1;
+  }
+  80% {
+    top: 60vh;            /* 画面の下あたりまで落下 */
+    opacity: 1;
+  }
+  100% {
+    top: 80vh;           /* 完全に下に抜けて消える */
+    opacity: 0;
+  }
+}
+
+#kaneki.active {
+  display: block;
+  animation: fall 1s linear forwards; /* 1秒で落下、終わったら消える */
 }

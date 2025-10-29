@@ -18,16 +18,40 @@ function setMoney(amount) {
 
 // ページ読み込み後の処理
 document.addEventListener('DOMContentLoaded', () => {
+  const okBtn = document.getElementById('ok');
   const roulette = document.getElementById('roulette');
   const ball = document.getElementById('ball');
   const startBtn = document.getElementById('start');
   const planBetMoneySpan = document.getElementById('planBetMoney');
-  const betDetailsDiv = document.getElementById('betDetails');
   const winningNumberDisplay = document.getElementById('winningNumberDisplay');
-
   const rouletteSize = roulette.offsetWidth;
   const centerX = rouletteSize / 2;
   const centerY = rouletteSize / 2;
+
+
+  const ruleBtn = document.getElementById('rule');
+  const closeBtn = document.getElementById('close');
+  const img = document.getElementById('rouletterule');
+  const overlay = document.getElementById('overlay');
+
+  //遊び方
+  ruleBtn.addEventListener('click', () => {
+    img.style.display = 'block';
+    closeBtn.style.display = 'inline-block';
+    ruleBtn.style.display = 'none';
+    overlay.style.display = 'block';
+  });
+  closeBtn.addEventListener('click', closeImage);
+
+  overlay.addEventListener('click', closeImage);
+
+  function closeImage() {
+    img.style.display = 'none';
+    closeBtn.style.display = 'none';
+    ruleBtn.style.display = 'inline-block';
+    overlay.style.display = 'none';
+  }
+
 
   let ballX, ballY, ballStartAngle, radius;
 
@@ -66,6 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBetSummary();
   });
 
+  //追加
+  document.getElementById('superHigh').addEventListener('click', () => {
+    if (betMoney + 100000 <= getMoney()) betMoney += 100000;
+    betDisplay();
+    updateBetSummary();
+  });
+  document.getElementById('superLow').addEventListener('click', () => {
+    if (betMoney - 100000 >= 1000) betMoney -= 100000;
+    betDisplay();
+    updateBetSummary();
+  });
+  document.getElementById('allIn').addEventListener('click', () => {
+    const money = getMoney();
+    if (money >= 1000) {
+      betMoney = money;
+      betDisplay();
+      updateBetSummary();
+    }
+  });
+
   // ボールの初期角度と半径を計算する初期化関数
   function initBallPosition() {
     ballX = ball.offsetLeft + ball.offsetWidth / 2;
@@ -82,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     24, 16, 33, 1, 20, 14, 31, 9, 22, 18,
     29, 7, 28, 12, 35, 3, 26
   ];
+
   const segmentAngle = 360 / numbers.length;
   const ROTATION_DURATION = 8000;
   let targetAngle = 0;
@@ -118,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let animationId = null;
   let startTime = null;
 
-  // ルーレット回転アニメーション
   function animate(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsed = timestamp - startTime;
@@ -145,10 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
       showResultByRotatedPositions(rouletteAngle);
       startBtn.disabled = false;
     }
-  }
+  };
 
   // ルーレット開始
-  function startRotation() {
+  /*function startRotation() {
     if (animationId) return;
 
     const resultIndex = Math.floor(Math.random() * numbers.length);
@@ -158,9 +202,88 @@ document.addEventListener('DOMContentLoaded', () => {
     winningNumberDisplay.style.display = 'none';
     startBtn.disabled = true;
     animationId = requestAnimationFrame(animate);
+  }*/
+
+  let currentWinNumber = null; // グローバルで保持
+
+  function startRotation() {
+    if (animationId) return;
+
+    const resultIndex = Math.floor(Math.random() * numbers.length);
+    const rotations = 5;
+    targetAngle = rotations * 360 + (resultIndex * segmentAngle);
+
+    currentWinNumber = numbers[resultIndex]; // 当たり番号を固定
+    console.log("今回の当たり番号:", currentWinNumber);
+
+    winningNumberDisplay.style.display = 'none';
+    startBtn.disabled = true;
+
+    checkWinAndAnimateKaneki(currentWinNumber);
+
+    animationId = requestAnimationFrame(animate);
   }
 
-  // 結果表示
+  // 別関数にしてもOK
+  function checkWinAndAnimateKaneki(winNumber) {
+    const selectedBets = Object.keys(placedBets);
+    let isWin = false;
+
+    for (const betKey of selectedBets) {
+      if (betKey.startsWith('No')) {
+        const betContent = betKey.replace(/^No/, '');
+        let betNumbers = [];
+
+        if (betContent.includes('~')) {
+          const [start, end] = betContent.split('~').map(Number);
+          for (let i = start; i <= end; i++) betNumbers.push(i);
+        } else {
+          betNumbers = betContent.split('and').map(Number);
+        }
+
+        if (betNumbers.includes(winNumber)) {
+          isWin = true;
+          break;
+        }
+      } else {
+        switch (betKey) {
+          case 'Red':
+            if ([1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36].includes(winNumber)) isWin = true;
+            break;
+          case 'Black':
+            if ([2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35].includes(winNumber)) isWin = true;
+            break;
+          case 'Even':
+            if (winNumber !== 0 && winNumber % 2 === 0) isWin = true;
+            break;
+          case 'Odd':
+            if (winNumber % 2 === 1) isWin = true;
+            break;
+          // 他の条件ベットも同様
+        }
+        if (isWin) break;
+      }
+    }
+
+    console.log("当たり判定:", isWin);
+
+    if (isWin && Math.random() < 0.9) {
+      const kaneki = document.getElementById('kaneki');
+      kaneki.classList.add('active');
+      setTimeout(() => kaneki.classList.remove('active'), 4000);
+    }
+  }
+
+
+
+
+  /*
+  ルーレットの盤面は中心を基準に、上方向（12時）を0度として角度設定 
+  各数字と玉の位置は、中心からの距離（半径）と角度を三角関数（cos, sin）でだす  
+  スタート時にランダムで当たり番号を選び、その番号に対応する角度まで盤面を回転させる
+  */
+
+  // ルーレットが止まった時の盤面の角度で当たり番号を特定
   function showResultByRotatedPositions(rouletteAngle) {
     const ballCenterX = ball.offsetLeft + ball.offsetWidth / 2;
     const ballCenterY = ball.offsetTop + ball.offsetHeight / 2;
@@ -168,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let minDistance = Infinity;
     let closestNumber = null;
 
+    //盤面の番号と計算上の座標を回転させて同期
     for (const [num, pos] of Object.entries(numberPositions)) {
       const rotated = rotatePoint(pos.x, pos.y, imageCenterX, imageCenterY, rouletteAngle);
       const dx = ballCenterX - rotated.x;
@@ -180,12 +304,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // 勝敗表示用関数
+    // 表示内容をセット
     winningNumberDisplay.textContent = closestNumber;
     winningNumberDisplay.style.display = 'block';
 
+    // 6秒後に非表示
     setTimeout(() => {
       winningNumberDisplay.style.display = 'none';
-    }, 6000);
+    }, 8000);
 
     const winNumber = Number(closestNumber);
     let currentMoney = getMoney();
@@ -262,8 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 賭け金合計を差し引き、払い戻しを加える
-    const totalBet = Object.values(placedBets).reduce((sum, val) => sum + val, 0);
-    const updatedMoney = currentMoney - totalBet + totalPayout;
+    const updatedMoney = currentMoney + totalPayout;
     setMoney(updatedMoney);
     gameover();
 
@@ -277,18 +403,35 @@ document.addEventListener('DOMContentLoaded', () => {
     resultBox.style.display = 'block';
     resultBox.textContent = '';
 
+    clearCoins();
+
     setTimeout(() => {
+      const winGif = document.getElementById('winGif');
       if (totalPayout > 0) {
         resultBox.textContent = `🎉 +${totalPayout.toLocaleString()} MB`;
         resultBox.style.color = 'green';
+        /*const chance = Math.random();
+        if (chance < 0.1) {
+          const kaneki = document.getElementById('kaneki');
+          kaneki.classList.add('active');*/
+        //winGif.style.display = 'block';
+        //winGif.src = winGif.src;
+        winningNumberDisplay.classList.add('rainbow');
+
+        setTimeout(() => {
+          winGif.style.display = 'none';
+        }, 4000);
+        //}
       } else {
         resultBox.textContent = `はずれ`;
         resultBox.style.color = 'red';
+        winningNumberDisplay.classList.remove('rainbow');
       }
     }, 1);
     setTimeout(() => {
       resultBox.style.display = 'none';
-    }, 6000);
+    }, 8000);
+
   }
 
   // スタートボタンにイベント登録
@@ -309,34 +452,74 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ベット確定ボタン
-  document.getElementById('ok').addEventListener('click', () => {
+  okBtn.addEventListener('click', () => {
     const selected = Array.from(document.querySelectorAll('.selected'));
     let currentMoney = getMoney();
-    const totalPlacedBet = Object.values(placedBets).reduce((sum, val) => sum + val, 0);
-    let availableMoney = currentMoney - totalPlacedBet;
+    let tempPlacedBets = { ...placedBets };
 
     for (const btn of selected) {
       const id = btn.id;
-      if (!placedBets[id]) {
-        if (availableMoney >= betMoney) {
-          placedBets[id] = betMoney;
-          availableMoney -= betMoney;
-        } else {
-          alert('所持金を超えて賭けることはできません');
-          break;
-        }
+      const existingBet = tempPlacedBets[id] || 0;
+
+      // 今回追加する賭け金だけで判定
+      if (currentMoney >= betMoney) {
+        tempPlacedBets[id] = existingBet + betMoney;
+        currentMoney -= betMoney; // 今回追加分だけ引く
+        placeCoin(btn);
+      } else {
+        alert(`"${id}" に賭けるには所持金が不足しています`);
+        continue; // 賭けられない場合はスキップ
       }
     }
+
+    placedBets = tempPlacedBets;
+    setMoney(currentMoney); // 残金を更新
     lastPlacedBets = { ...placedBets };
     updateBetSummary();
     betDisplay();
   });
 
+  function placeCoin(button) {
+    const board = document.getElementById('rouletteBoard');
+    if (!board.contains(button)) return;
+
+    const rect = button.getBoundingClientRect();
+    const boardRect = board.getBoundingClientRect();
+
+    const coin = document.createElement('div');
+    coin.classList.add('coin');
+
+    // ボタンの位置を #rouletteBoard基準に変換
+    coin.style.left = (rect.left - boardRect.left + rect.width / 2) + 'px';
+    coin.style.top = (rect.top - boardRect.top + rect.height / 2 - 35) + 'px';
+
+    board.appendChild(coin);
+
+    coin.animate([
+      { top: (rect.top - boardRect.top - 100) + 'px' },
+      { top: (rect.top - boardRect.top - 35) + 'px' }
+    ], {
+      duration: 500,
+      easing: 'ease-out'
+    });
+  }
+
+  function clearCoins() {
+    const coins = document.querySelectorAll('#rouletteBoard .coin');
+    coins.forEach(coin => coin.remove());
+  }
+
+
   // ベットリセットボタン
   document.getElementById('reset').addEventListener('click', () => {
+    let currentMoney = getMoney();
+    const totalBet = Object.values(placedBets).reduce((sum, val) => sum + val, 0);
+    setMoney(currentMoney + totalBet);
     placedBets = {};
     document.querySelectorAll('.selected').forEach(btn => btn.classList.remove('selected'));
     updateBetSummary();
+    betDisplay();
+    clearCoins();
   });
 
   // ベット概要表示の更新
@@ -451,8 +634,44 @@ document.addEventListener('DOMContentLoaded', () => {
       'No22~27': '22~27',
       'No25~30': '25~30',
       'No28~33': '28~33',
-      'No31~36': '31~36'
+      'No31~36': '31~36',
+      'Red': 'RED', 'Black': 'BLACK', 'Even': 'EVEN', 'Odd': 'ODD'
     };
+
+    function removeBet(betKey) {
+      if (!placedBets[betKey]) return;
+
+      // 賭け金を返金
+      let currentMoney = getMoney();
+      currentMoney += placedBets[betKey];
+      setMoney(currentMoney);
+
+      // データから削除
+      delete placedBets[betKey];
+
+      // コイン削除（対応ボタン位置のコインを削除）
+      const board = document.getElementById('rouletteBoard');
+      const button = document.getElementById(betKey);
+      if (button && board) {
+        const rect = button.getBoundingClientRect();
+        const boardRect = board.getBoundingClientRect();
+        const targetLeft = Math.round(rect.left - boardRect.left + rect.width / 2);
+        const targetTop = Math.round(rect.top - boardRect.top + rect.height / 2 - 35);
+
+        document.querySelectorAll('#rouletteBoard .coin').forEach(coin => {
+          const coinLeft = Math.round(parseFloat(coin.style.left));
+          const coinTop = Math.round(parseFloat(coin.style.top));
+          if (Math.abs(coinLeft - targetLeft) < 5 && Math.abs(coinTop - targetTop) < 5) {
+            coin.remove();
+          }
+        });
+      }
+
+      // 表示更新
+      updateBetSummary();
+      betDisplay();
+    }
+
 
 
     // 賭け詳細リスト表示
@@ -461,7 +680,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       const displayName = displayNames[betKey] || betKey;
       const payoutMultiplier = odds[betKey] || 1;
-      li.textContent = `${displayName} に ${amount.toLocaleString()} MB 賭けています(倍率:${payoutMultiplier}倍)`;
+      const textSpan = document.createElement('span');
+      textSpan.textContent = `${displayName} に ${amount.toLocaleString()} MB 賭けています(倍率:${payoutMultiplier}倍)`;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = '✖';
+      removeBtn.classList.add('remove-bet');
+      removeBtn.addEventListener('click', () => removeBet(betKey));
+
+      li.appendChild(textSpan);
+      li.appendChild(removeBtn);
       ul.appendChild(li);
     }
     betDetailsDiv.appendChild(ul);
@@ -546,3 +774,4 @@ eighteenMultiples.forEach(key => odds[key] = 18);
   'No1~6', 'No4~9', 'No7~12', 'No10~15', 'No13~18', 'No16~21',
   'No19~24', 'No22~27', 'No25~30', 'No28~33', 'No31~36'
 ].forEach(key => odds[key] = 6);
+
