@@ -283,8 +283,8 @@ const winRateCalc = () => {
     let tempdealer;
     let winTiems = 0;
 
-    //20000回実行
-    for (let i=1; i<=20000; i++){
+    //10000回実行
+    for (let i=1; i<=10000; i++){
         temptrump = trump.concat(dealer);
         tempdealer = [];
         for (let j=0; j<5; j++){
@@ -307,7 +307,7 @@ const winRateCalc = () => {
             }
         }
     }
-    let winRate = (winTiems / 20000) * 100;
+    let winRate = (winTiems / 10000) * 100;
     return winRate;
 }
 
