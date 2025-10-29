@@ -978,7 +978,7 @@ const fiveCheatDealer = () => {
     let [pyaku, ptopNum] = hantei(player);
     tempdealer = [...dealer];
 
-    while(dyaku>pyaku || (dyaku==pyaku && dtopNum>=ptopNum)){
+    while(dyaku>pyaku || (dyaku==pyaku && dtopNum <= ptopNum)){
         temptrump = trump.slice();
         for(let i=0; i<5; i++){
             ram = Math.floor(Math.random() * temptrump.length);
@@ -1002,7 +1002,7 @@ const texasCheatDealer = () => {
     let [dyaku, dtopNum] = hantei(tempdealer5);
     let [pyaku, ptopNum] = hantei(player);
 
-    while(dyaku>pyaku || (dyaku==pyaku && dtopNum>=ptopNum)){
+    while(dyaku>pyaku || (dyaku==pyaku && dtopNum <= ptopNum)){
         temptrump = trump.slice();
         tempdealer = [];
         for(let i=0; i<2; i++){
