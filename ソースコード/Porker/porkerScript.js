@@ -64,9 +64,9 @@ const giveCard = (place,numCard) => {
     }
 
     // テスト用ーーーーー要削除ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    // dealer = ['spade-12', 'clover-2','heart-7', 'spade-7', 'clover-8'];
-    // player = ['spade-12', 'clover-2','heart-7', 'spade-7', 'clover-8'];
-    // table = ['clover-2', 'clover-2','clover-2', 'spade-7', 'clover-8'];
+    // dealer = ['spade-8', 'clover-10'];
+    // player = ['clover-14', 'dia-3'];
+    // table = ['dia-9', 'clover-5', 'clover-3', 'clover-9', 'clover-6'];
     // trump.length = 0;
     // trump.unshift('spade-5');
     // trump.unshift('spade-2');
@@ -383,6 +383,7 @@ fold.addEventListener('click', () => {
     document.getElementById("fold").style.display = "none";
     document.getElementById("raise").style.display = "none";
     document.getElementById("allin").style.display = "none";
+    document.getElementById("bet").style.display = "none";
 
     loseResult.innerHTML = '負け<br>-' + tempBetMoney + 'MB';
     loseResult.style.display = "block";
@@ -400,15 +401,13 @@ raise.addEventListener('click', () => {
         document.getElementById("fold").style.display = "none";
         document.getElementById("raise").style.display = "none";
 
-
-        // 60%でプレイヤーよりも強い手になる。
-        if (Math.floor(Math.random() * 10) < 6){
+        let [pyaku, ptopNum] = hantei(player);    
+        // 60%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
+        if (Math.floor(Math.random() * 10) < 6 && pyaku > 6){
             let [pyaku, ptopNum] = hantei(player);
-            // プレイヤーの役がスリーカード以下の時
-            if(pyaku > 6){
-                fiveCheatDealer();
-                console.log('ディーラーのチート');
-            }
+
+            fiveCheatDealer();
+            console.log('ディーラーのチート');
         }
 
         dealerCardOpen(5);
@@ -429,14 +428,14 @@ raise.addEventListener('click', () => {
             // ここにどのカード5枚で役を作るのか決めて、playerとdealerに一番強い役を入れる
             player = tehudakettei(player);
 
-            // 60%でプレイヤーよりも強い手になる。
-            if (Math.floor(Math.random() * 10) < 6){
+            let [pyaku, ptopNum] = hantei(player);   
+            // 60%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
+            if (Math.floor(Math.random() * 10) < 6 && pyaku > 6){
                 let [pyaku, ptopNum] = hantei(player);
-                // プレイヤーの役がスリーカード以下の時
-                if(pyaku > 6){
+
                     dealer = texasCheatDealer();
                     console.log('ディーラーのチート');
-                }
+
             }
             dealerCardOpen(2);
             dealer = tehudakettei(dealer);
@@ -589,7 +588,7 @@ const hantei = (tehuda) => {
 
     // dealerとplayerで勝敗決定するために数字に当てはめる
     if (sameSuit == true && royal == true){
-        return [1, 0];
+        return [1, tehudaNum];
     }else if (sameSuit == true && continuous == true){
         return [2, conTopNum];
     }else if (pair == 'fourCard'){
@@ -658,16 +657,13 @@ const continuousCheck = (tehudaNum) => {
     for (let i = 0; i < ascTehudaNum.length - 1; i++){
         if (ascTehudaNum[i] !== (ascTehudaNum[i+1] - 1)){
             continuous = false;
-            conTopNum = false;
+            conTopNum = ascTehudaNum;
             return [continuous,conTopNum];
         }
     }
     continuous = true;
 
-    // 一番強い数字をsuitTopNumに格納
-    conTopNum = ascTehudaNum[ascTehudaNum.length - 1];
-
-    return [continuous,conTopNum];
+    return [continuous,ascTehudaNum];
 }
 
 
@@ -796,6 +792,7 @@ const tehudakettei = (place) => {
             allCard.splice(j-1, 1);
             // 5枚にしたカードの強さを調べる
             let [tempyaku, temptopNum] = hantei(allCard);
+
             // 合計
             let tempsumTopNum = temptopNum.map(Number).reduce((acc, val) => acc + val, 0);
             // tempyakuのほうが強い場合、強い手札を保存し、同役の場合、数値の合計が大きい手札を保存
@@ -977,9 +974,10 @@ const fiveCheatDealer = () => {
     let [dyaku, dtopNum] = hantei(dealer);
     let [pyaku, ptopNum] = hantei(player);
     tempdealer = [...dealer];
-    let numWin;
+    let numWin = false;
 
     while(dyaku>pyaku || (dyaku==pyaku && numWin==false)){
+        numWin = false;
         temptrump = trump.slice();
         for(let i=0; i<5; i++){
             ram = Math.floor(Math.random() * temptrump.length);
@@ -989,9 +987,10 @@ const fiveCheatDealer = () => {
         [dyaku, dtopNum] = hantei(tempdealer);
         
         for (let i=0; i<5; i++){
-            if (dtopNum[i] > ptopNum[i]){
-                numWin = true;
+            if (Number(dtopNum[i]) <= Number(ptopNum[i])){
                 break;
+            }else{
+                numWin = true;
             }
         }
     }
@@ -1009,7 +1008,7 @@ const texasCheatDealer = () => {
     let tempdealer5 = tehudakettei(tempdealer);
     let [dyaku, dtopNum] = hantei(tempdealer5);
     let [pyaku, ptopNum] = hantei(player);
-    let numWin;
+    let numWin = false;
 
     while(dyaku>pyaku || (dyaku==pyaku && numWin==false)){
         numWin = false;
@@ -1024,9 +1023,10 @@ const texasCheatDealer = () => {
         [dyaku, dtopNum] = hantei(tempdealer5);
 
         for (let i=0; i<5; i++){
-            if (dtopNum[i] > ptopNum[i]){
-                numWin = true;
+            if (Number(dtopNum[i]) <= Number(ptopNum[i])){
                 break;
+            }else{
+                numWin = true;
             }
         }
     }
