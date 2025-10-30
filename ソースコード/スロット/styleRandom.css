@@ -475,6 +475,7 @@ img {
 
 /* 所持金と賭け額表示全体 */
 #ownBetMoney{
+  position: absolute;
   width: 270px;
   background-color: rgb(255, 255, 255);
   border-style: solid;
