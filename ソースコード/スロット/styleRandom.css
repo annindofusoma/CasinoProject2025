@@ -481,8 +481,7 @@ img {
   border-color: black;
   position: absolute;
 /* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
-  left: 50%; 
-  transform: translateX(200px);
+  margin-left: 790px;
 }
  
 /* 所持金 */
