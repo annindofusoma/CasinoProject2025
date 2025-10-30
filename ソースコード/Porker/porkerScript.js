@@ -64,9 +64,9 @@ const giveCard = (place,numCard) => {
     }
 
     // テスト用ーーーーー要削除ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    // dealer = ['spade-13', 'clover-6','heart-7', 'spade-7', 'clover-8'];
-    // player = ['spade-6', 'heart-6','clover-6', 'dia-6', 'spade-12'];
-    // table = ['dia-10', 'dia-11','heart-7', 'spade-7', 'clover-8'];
+    // dealer = ['spade-12', 'clover-2','heart-7', 'spade-7', 'clover-8'];
+    // player = ['spade-12', 'clover-2','heart-7', 'spade-7', 'clover-8'];
+    // table = ['clover-2', 'clover-2','clover-2', 'spade-7', 'clover-8'];
     // trump.length = 0;
     // trump.unshift('spade-5');
     // trump.unshift('spade-2');
