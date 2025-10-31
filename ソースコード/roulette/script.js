@@ -267,11 +267,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("当たり判定:", isWin);
 
-    if (isWin && Math.random() < 0.9) {
-      const kaneki = document.getElementById('kaneki');
-      kaneki.classList.add('active');
-      setTimeout(() => kaneki.classList.remove('active'), 4000);
-    }
+    // if (isWin && Math.random() < 0.9) {
+    //   const kaneki = document.getElementById('kaneki');
+    //   kaneki.classList.add('active');
+    //   setTimeout(() => kaneki.classList.remove('active'), 4000);
+    // }
   }
 
 
@@ -418,9 +418,9 @@ document.addEventListener('DOMContentLoaded', () => {
         //winGif.src = winGif.src;
         winningNumberDisplay.classList.add('rainbow');
 
-        setTimeout(() => {
-          winGif.style.display = 'none';
-        }, 4000);
+        // setTimeout(() => {
+        //   winGif.style.display = 'none';
+        // }, 4000);
         //}
       } else {
         resultBox.textContent = `はずれ`;
