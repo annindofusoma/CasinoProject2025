@@ -22,31 +22,33 @@ img {
 }
 
 
-#gameover{
-    width: 1930px;
-    height: auto;
-    top: 0px;
+#gameover {
+    width: 1700px;
+    height: 950px;
+    margin-top: -18px;
+    margin-left: -250px;
     display: none;
     /* 画像の背後が見えるように透過 */
     opacity: 85%;
     position: absolute;
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
+    /* left: 50%;
+    transform: translateX(-50%); */
+    z-index: 8;
 }
 
-#goclose{
-    margin-top: 800px;
+#goclose {
+    margin-top: 760px;
+    margin-left: 550px;
     position: absolute;
     position: fixed;
     display: none;
-    left: 50%;
-    transform: translateX(-50%);
+    /* left: 50%;
+    transform: translateX(-50%); */
     font-size: 20px;
     height: 45px;
     width: 100px;
-    z-index: 6;
+    z-index: 9;
 }
 
 
