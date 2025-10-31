@@ -438,7 +438,6 @@ img {
     /* 画像の背後が見えるように透過 */
     opacity: 95%;
     position: absolute;
-    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     z-index: 8;
@@ -447,7 +446,6 @@ img {
 #ランダム説明閉じる {
     margin-top: 750px;
     position: absolute;
-    position: fixed;
     display: none;
     margin-left: 1050px;
     transform: translateX(-50%);
