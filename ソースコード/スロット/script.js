@@ -58,7 +58,11 @@ function resetReelPositionsFromLast() {
 }
 
 
-
+const audioTyeli = new Audio("チェリー.mp3");
+const audioSuika = new Audio("スイカ.mp3");
+const audioripu = new Audio("リプレイ.mp3");
+const audioBeru = new Audio("ベル.mp3");
+const audio7 = new Audio("７揃い.mp3");
 
 
 function checkResult() {
@@ -72,22 +76,27 @@ function checkResult() {
     if ((hidari7 === "上段" && naka7 === "上段" && migi7 === "上段") || (hidari7 === "中段" && naka7 === "中段" && migi7 === "中段") || (hidari7 === "下段" && naka7 === "下段" && migi7 === "下段") || (hidari7 === "上段" && naka7 === "中段" && migi7 === "下段") || (hidari7 === "下段" && naka7 === "中段" && migi7 === "上段")) {
       document.getElementById("収支").textContent = "+" + betMoney * 5 + " MB";
       storage.money = money + (betMoney * 5)
+      audio7.play();
     //チェリー
     } else if ((hidari7 === "下段" && naka7 === "枠下" && migi7 === "下段") || (hidari7 === "枠下" && naka7 === "枠上" && migi7 === "枠下") || (hidari7 === "枠上" && naka7 === "上段" && migi7 === "枠上") || (hidari7 === "下段" && naka7 === "枠上" && migi7 === "枠上") || (hidari7 === "枠上" && naka7 === "枠上" && migi7 === "下段")) {
       document.getElementById("収支").textContent = "+" + betMoney * 7 + " MB";
       storage.money = money + (betMoney * 7)
+      audioTyeli.play();
     //スイカ
     } else if ((hidari7 === "中段" && naka7 === "枠上" && migi7 === "中段") || (hidari7 === "下段" && naka7 === "上段" && migi7 === "下段") || (hidari7 === "枠下" && naka7 === "中段" && migi7 === "枠下") || (hidari7 === "中段" && naka7 === "上段" && migi7 === "枠下") || (hidari7 === "枠下" && naka7 === "上段" && migi7 === "中段")) {
       document.getElementById("収支").textContent = "+" + betMoney * 3 + " MB";
       storage.money = money + (betMoney * 3)
+      audioSuika.play();
     //ベル
     } else if ((hidari7 === "枠上" && naka7 === "中段" && migi7 === "枠上") || (hidari7 === "上段" && naka7 === "下段" && migi7 === "上段") || (hidari7 === "中段" && naka7 === "枠下" && migi7 === "中段") || (hidari7 === "枠上" && naka7 === "下段" && migi7 === "中段") || (hidari7 === "中段" && naka7 === "下段" && migi7 === "枠上")) {
       document.getElementById("収支").textContent = "+" + betMoney * 2 + " MB";
       storage.money = money + (betMoney * 2)
+      audioBeru.play();
     //リプレイ
     } else if ((hidari7 === "枠下" && naka7 === "下段" && migi7 === "枠下") || (hidari7 === "枠上" && naka7 === "枠下" && migi7 === "枠上") || (hidari7 === "上段" && naka7 === "枠上" && migi7 === "上段") || (hidari7 === "枠下" && naka7 === "枠下" && migi7 === "上段") || (hidari7 === "上段" && naka7 === "枠下" && migi7 === "枠下")) {
       document.getElementById("収支").textContent = "+" + betMoney * 1 + " MB";
       storage.money = money + (betMoney * 1)
+      audioripu.play();
     //ハズレ
     } else {
       document.getElementById("当たり").textContent = "ハズレ";
@@ -360,9 +369,22 @@ const stop1 = document.getElementById("stop1");
 const stop2 = document.getElementById("stop2");
 const stop3 = document.getElementById("stop3");
 
+const audioStart = new Audio("スタート.mp3");
+const audioStop = new Audio("ストップ.mp3");
+
+const audioBGM = new Audio("MERSUS.mp3");
+audioBGM.loop = true;
+let isPlayed = false;
+
 // STARTボタン
 start.addEventListener("click", () => {
-
+  if (!isPlayed) {
+    audioStart.play();
+    audioBGM.volume = 0.5;
+    audioBGM.play();
+    isPlayed = true;
+  }
+  audioStart.play();
 
   hidari7 = "";
   naka7 = "";
@@ -399,12 +421,18 @@ stop2.disabled = true;
 stop3.disabled = true;
 
 stop1.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop1Requested = true;
 });
 stop2.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop2Requested = true;
 });
 stop3.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop3Requested = true;
 });
 
@@ -429,9 +457,14 @@ gameEnd.addEventListener("click", () => {
   window.location.href = "../Home/index.html"
 })
 
+
+const audioSetumei = new Audio("説明.mp3");
+const audioSetumeiClose = new Audio("説明閉じる.mp3");
+
 //説明
 const MERSUSExplain = document.getElementById("MERSUS遊び方");
 MERSUSExplain.addEventListener("click", () => {
+  audioSetumei.play();
   document.getElementById("MERSUS説明画像").style.display = "block"
   MERSUScloseExplain.style.display = "block";
 })
@@ -439,6 +472,7 @@ MERSUSExplain.addEventListener("click", () => {
 //閉じる
 const MERSUScloseExplain = document.getElementById("MERSUS説明閉じる");
 MERSUScloseExplain.addEventListener("click", () => {
+  audioSetumeiClose.play();
   document.getElementById("MERSUS説明画像").style.display = "none";
   MERSUScloseExplain.style.display = "none";
 })

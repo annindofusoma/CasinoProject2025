@@ -81,22 +81,35 @@ function checkResult() {
       document.getElementById("左ハナ当たり").style.zIndex = 4;
       document.getElementById("右ハナ当たり").style.zIndex = 4;
       document.getElementById("当たり").textContent = "ビッグボーナス！！";
+      audioBGM.pause();
+      audio7.play();
+      if (hikariNum === 1 || hikariNum === 2 || hikariNum === 3 || hikariNum === 4 || hikariNum === 5 || hikariNum === 6) {
+        audioBonus2.volume = 0.7;
+        audioBonus2.play();
+      } else {
+        audioBonus.volume = 0.7;
+        audioBonus.play();
+      }
     //チェリー
     } else if ((hidari7 === "下段" && naka7 === "枠下" && migi7 === "下段") || (hidari7 === "枠下" && naka7 === "枠上" && migi7 === "枠下") || (hidari7 === "枠上" && naka7 === "上段" && migi7 === "枠上") || (hidari7 === "下段" && naka7 === "枠上" && migi7 === "枠上") || (hidari7 === "枠上" && naka7 === "枠上" && migi7 === "下段")) {
       document.getElementById("収支").textContent = "+" + betMoney * 3 + " MB";
       storage.money = money + (betMoney * 3)
+      audioTyeli.play();
     //スイカ
     } else if ((hidari7 === "中段" && naka7 === "枠上" && migi7 === "中段") || (hidari7 === "下段" && naka7 === "上段" && migi7 === "下段") || (hidari7 === "枠下" && naka7 === "中段" && migi7 === "枠下") || (hidari7 === "中段" && naka7 === "上段" && migi7 === "枠下") || (hidari7 === "枠下" && naka7 === "上段" && migi7 === "中段")) {
       document.getElementById("収支").textContent = "+" + betMoney * 3 + " MB";
       storage.money = money + (betMoney * 3)
+      audioSuika.play();
     //ベル
     } else if ((hidari7 === "枠上" && naka7 === "中段" && migi7 === "枠上") || (hidari7 === "上段" && naka7 === "下段" && migi7 === "上段") || (hidari7 === "中段" && naka7 === "枠下" && migi7 === "中段") || (hidari7 === "枠上" && naka7 === "下段" && migi7 === "中段") || (hidari7 === "中段" && naka7 === "下段" && migi7 === "枠上")) {
       document.getElementById("収支").textContent = "+" + betMoney * 2 + " MB";
       storage.money = money + (betMoney * 2)
+      audioBeru.play();
     //リプレイ
     } else if ((hidari7 === "枠下" && naka7 === "下段" && migi7 === "枠下") || (hidari7 === "枠上" && naka7 === "枠下" && migi7 === "枠上") || (hidari7 === "上段" && naka7 === "枠上" && migi7 === "上段") || (hidari7 === "枠下" && naka7 === "枠下" && migi7 === "上段") || (hidari7 === "上段" && naka7 === "枠下" && migi7 === "枠下")) {
       document.getElementById("収支").textContent = "+" + betMoney * 1 + " MB";
       storage.money = money + (betMoney * 1)
+      audioripu.play();
     //ハズレ
     } else {
       document.getElementById("当たり").textContent = "ハズレ";
@@ -111,7 +124,14 @@ function checkResult() {
       Bonusgame = 0;
       document.getElementById("左ハナ当たり").style.zIndex = "-1";
       document.getElementById("右ハナ当たり").style.zIndex = "-1";
-
+      if (hikariNum === 1 || hikariNum === 2 || hikariNum === 3 || hikariNum === 4 || hikariNum === 5 || hikariNum === 6) {
+      audioBonus2.pause();
+      audioBonus2.currentTime = 0;
+      } else {
+      audioBonus.pause();
+      audioBonus.currentTime = 0;
+      }
+      isPlayed = false;
     } else if (atariHantei === "当たり" && Bonusgame === 0) {
       if (hikariNum === 1) {
         clearInterval(intervalBlue);
@@ -439,12 +459,39 @@ function hikaruLoop() {
 }
 
 
+const audioShitapaneru = new Audio("下パネル消灯.mp3");
+const audioHana = new Audio("ハナ当たり.mp3");
+const audioBonus = new Audio("ボーナス音楽.mp3");
+const audioBonus2 = new Audio("ボーナス音楽２.mp3");
+const audioTyeli = new Audio("チェリー.mp3");
+const audioSuika = new Audio("スイカ.mp3");
+const audioripu = new Audio("リプレイ.mp3");
+const audioBeru = new Audio("ベル.mp3");
+const audio7 = new Audio("７揃い.mp3");
+const audioSisa = new Audio("シーサーの目.mp3");
+const audioStart = new Audio("スタート.mp3");
+const audioStop = new Audio("ストップ.mp3");
+const audioSetumei = new Audio("説明.mp3");
+const audioSetumeiClose = new Audio("説明閉じる.mp3");
+
+const audioBGM = new Audio("MABDOKI.mp3");
+audioBGM.loop = true;
+let isPlayed = false;
+
 // STARTボタン
 start.addEventListener("click", () => {
-    hidari7 = "";
-    naka7 = "";
-    migi7 = "";
-  randomNum = Math.floor(Math.random() * 120) + 1;
+  if (!isPlayed) {
+    audioStart.play();
+    audioBGM.volume = 0.5;
+    audioBGM.play();
+    isPlayed = true;
+  }
+  audioStart.volume = 0.8;
+  audioStart.play();
+  hidari7 = "";
+  naka7 = "";
+  migi7 = "";
+  randomNum = Math.floor(Math.random() * 40) + 1;
 
   if (atarime1 === true) {
     randomNum = 121;
@@ -493,6 +540,7 @@ start.addEventListener("click", () => {
     atarime1 = true;
     if (Math.random() < 0.75) {
       document.getElementById("下パネル消灯用").style.zIndex = "3";
+      audioShitapaneru.play();
     }
     targetPositionsHidari = [307.45];
     targetPositionsNaka = [229.9];
@@ -502,6 +550,7 @@ start.addEventListener("click", () => {
     atarime2 = true;
     if (Math.random() < 0.75) {
       document.getElementById("下パネル消灯用").style.zIndex = "3";
+      audioShitapaneru.play();
     }
     targetPositionsHidari = [462.55];
     targetPositionsNaka = [229.9];
@@ -512,6 +561,7 @@ start.addEventListener("click", () => {
     sisaHikari = true;
     document.getElementById("シーサー光").style.zIndex = "6";
     document.getElementById("シーサー光2").style.zIndex = "6";
+    audioSisa.play();
     targetPositionsHidari = [385];
     targetPositionsNaka = [152.35];
     targetPositionsMigi = [385];
@@ -521,6 +571,7 @@ start.addEventListener("click", () => {
     sisaHikari = true;
     document.getElementById("シーサー光").style.zIndex = "6";
     document.getElementById("シーサー光2").style.zIndex = "6";
+    audioSisa.play();
     targetPositionsHidari = [462.55];
     targetPositionsNaka = [152.35];
     targetPositionsMigi = [307.45];
@@ -534,6 +585,7 @@ start.addEventListener("click", () => {
     sisaHikari = true;
     document.getElementById("シーサー光").style.zIndex = "6";
     document.getElementById("シーサー光2").style.zIndex = "6";
+    audioSisa.play();
     targetPositionsHidari = [462.55];
     targetPositionsNaka = [152.35];
     targetPositionsMigi = [462.55];
@@ -547,6 +599,7 @@ start.addEventListener("click", () => {
     sisaHikari = true;
     document.getElementById("シーサー光").style.zIndex = "6";
     document.getElementById("シーサー光2").style.zIndex = "6";
+    audioSisa.play();
     targetPositionsHidari = [385];
     targetPositionsNaka = [152.35];
     targetPositionsMigi = [152.35];
@@ -780,6 +833,7 @@ start.addEventListener("click", () => {
   }
 
   if (atariHantei === "当たり" && Bonusgame === 0) {
+    audioHana.play();
     hikariNum = Math.floor(Math.random() * 20) + 1
     if (hikariNum === 1) {
       intervalBlue = setInterval(() => {
@@ -876,12 +930,18 @@ stop2.disabled = true;
 stop3.disabled = true;
 
 stop1.addEventListener("click", () => {
+  audioStop.volume = 0.8;
+  audioStop.play();
   stop1Requested = true;
 });
 stop2.addEventListener("click", () => {
+  audioStop.volume = 0.8;
+  audioStop.play();
   stop2Requested = true;
 });
 stop3.addEventListener("click", () => {
+  audioStop.volume = 0.8;
+  audioStop.play();
   stop3Requested = true;
 });
 
@@ -909,6 +969,7 @@ gameEnd.addEventListener("click", () => {
 //説明
 const slotExplain = document.getElementById("オキドキ遊び方");
 slotExplain.addEventListener("click", () => {
+  audioSetumei.play();
   document.getElementById("オキドキ説明画像").style.display = "block"
   nextExplain.style.display = "block";
   closeExplain.style.display = "block";
@@ -917,6 +978,7 @@ slotExplain.addEventListener("click", () => {
 //次へ
 const nextExplain = document.getElementById("オキドキ説明次へ");
 nextExplain.addEventListener("click", () => {
+  audioSetumeiClose.play();
   document.getElementById("オキドキ説明画像").style.display = "none";
   document.getElementById("オキドキ説明画像２").style.display = "block";
   nextExplain.style.display = "none";
@@ -926,6 +988,7 @@ nextExplain.addEventListener("click", () => {
 //前へ
 const backExplain = document.getElementById("オキドキ説明前へ");
 backExplain.addEventListener("click", () => {
+  audioSetumeiClose.play();
   document.getElementById("オキドキ説明画像２").style.display = "none";
   document.getElementById("オキドキ説明画像").style.display = "block";
   backExplain.style.display = "none";
@@ -935,6 +998,7 @@ backExplain.addEventListener("click", () => {
 //閉じる
 const closeExplain = document.getElementById("オキドキ説明閉じる");
 closeExplain.addEventListener("click", () => {
+  audioSetumeiClose.play();
   document.getElementById("オキドキ説明画像").style.display = "none";
   document.getElementById("オキドキ説明画像２").style.display = "none";
   nextExplain.style.display = "none";

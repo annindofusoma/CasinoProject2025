@@ -192,7 +192,13 @@ function checkResult() {
       document.getElementById("当たり").style.color = "blue";
       gameover();
     }
-
+    if (document.getElementById("当たり").textContent === "ハズレ") {
+      const audioHazure = new Audio("外れ.mp3");
+      audioHazure.play();
+    } else {
+      const audioAtari = new Audio("当たり.mp3");
+      audioAtari.play();
+    }
     betDisplay();
   }
 }
@@ -456,8 +462,22 @@ const stop1 = document.getElementById("stop1");
 const stop2 = document.getElementById("stop2");
 const stop3 = document.getElementById("stop3");
 
+
+const audioBGM = new Audio("MISCUP.mp3");
+audioBGM.loop = true;
+let isPlayed = false;
+
+const audioStart = new Audio("スタート.mp3");
+const audioStop = new Audio("ストップ.mp3");
+
 // STARTボタン
 start.addEventListener("click", () => {
+  if (!isPlayed) {
+    audioStart.play();
+    audioBGM.volume = 0.5;
+    audioBGM.play();
+    isPlayed = true;
+  }
   hidari7 = "";
   naka7 = "";
   migi7 = "";
@@ -494,12 +514,18 @@ stop2.disabled = true;
 stop3.disabled = true;
 
 stop1.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop1Requested = true;
 });
 stop2.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop2Requested = true;
 });
 stop3.addEventListener("click", () => {
+  audioStop.volume = 0.7;
+  audioStop.play();
   stop3Requested = true;
 });
 
@@ -525,9 +551,14 @@ gameEnd.addEventListener("click", () => {
   window.location.href = "../Home/index.html"
 })
 
+
+const audioSetumei = new Audio("説明.mp3");
+const audioSetumeiClose = new Audio("説明閉じる.mp3");
+
 //説明
 const slotExplain = document.getElementById("ランダム遊び方");
 slotExplain.addEventListener("click", () => {
+  audioSetumei.play();
   document.getElementById("ランダム説明").style.display = "block"
   closeExplain.style.display = "block";
 })
@@ -535,6 +566,7 @@ slotExplain.addEventListener("click", () => {
 //閉じる
 const closeExplain = document.getElementById("ランダム説明閉じる");
 closeExplain.addEventListener("click", () => {
+  audioSetumeiClose.play();
   document.getElementById("ランダム説明").style.display = "none";
   closeExplain.style.display = "none";
 })
