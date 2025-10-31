@@ -397,64 +397,71 @@ fold.addEventListener('click', () => {
 // レイズのクリックイベント
 raise.addEventListener('click', () => {
     if(gameMode == 'fiveCardDraw'){
-        document.getElementById("betPrice").style.display = "none";
-        document.getElementById("fold").style.display = "none";
-        document.getElementById("raise").style.display = "none";
-
-        let [pyaku, ptopNum] = hantei(player);    
-        // 60%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
-        if (Math.floor(Math.random() * 10) < 6 && pyaku > 6){
-            let [pyaku, ptopNum] = hantei(player);
-
-            fiveCheatDealer();
-            console.log('ディーラーのチート');
-        }
-
-        dealerCardOpen(5);
-        winDecide();
-    }else{
-        raiseTimes = raiseTimes + 1;
-        // 1～3回のレイズ
-        if(raiseTimes == 1){
-            document.getElementById(`t2`).src = `Trump/${table[1]}.png`;
-        }else if(raiseTimes == 2){
-            document.getElementById(`t1`).src = `Trump/${table[0]}.png`;
-        }else if(raiseTimes == 3){
+        if (betMoney == tempBetMoney && tempBetMoney !== storage.money){
+            window.alert('ゲームを続ける場合、掛け金を追加してください。')
+        }else{
             document.getElementById("betPrice").style.display = "none";
             document.getElementById("fold").style.display = "none";
             document.getElementById("raise").style.display = "none";
-            document.getElementById("allin").style.display = "none";
 
-            // ここにどのカード5枚で役を作るのか決めて、playerとdealerに一番強い役を入れる
-            player = tehudakettei(player);
-
-            let [pyaku, ptopNum] = hantei(player);   
-            // 60%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
-            if (Math.floor(Math.random() * 10) < 6 && pyaku > 6){
+            let [pyaku, ptopNum] = hantei(player);    
+            // 50%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
+            if (Math.floor(Math.random() * 10) < 5 && pyaku > 6){
                 let [pyaku, ptopNum] = hantei(player);
-
-                    dealer = texasCheatDealer();
-                    console.log('ディーラーのチート');
-
+                fiveCheatDealer();
+                console.log('ディーラーのチート');
             }
-            dealerCardOpen(2);
-            dealer = tehudakettei(dealer);
+
+            dealerCardOpen(5);
             winDecide();
+        }
+    }else{
+        if (betMoney == tempBetMoney && tempBetMoney !== storage.money){
+            window.alert('ゲームを続ける場合、掛け金を追加してください。')
+        }else{
+            raiseTimes = raiseTimes + 1;
+            // 1～3回のレイズ
+            if(raiseTimes == 1){
+                document.getElementById(`t2`).src = `Trump/${table[1]}.png`;
+            }else if(raiseTimes == 2){
+                document.getElementById(`t1`).src = `Trump/${table[0]}.png`;
+            }else if(raiseTimes == 3){
+                document.getElementById("betPrice").style.display = "none";
+                document.getElementById("fold").style.display = "none";
+                document.getElementById("raise").style.display = "none";
+                document.getElementById("allin").style.display = "none";
 
-            // プレイヤーの強い役が作れるカード5枚に青の枠線を追加
-            player.forEach(elem => {
-                document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid blue";
-            });
+                // ここにどのカード5枚で役を作るのか決めて、playerとdealerに一番強い役を入れる
+                player = tehudakettei(player);
 
-            // ディーラーの強い役が作れるカード5枚に黄の枠線を追加
-            dealer.forEach(elem => {
-                document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid #FFFF55";
-                // プレイヤーとディーラー両方が使用するカードは青と黄両方の枠線
-                if (player.includes(elem)==true){
-                    document.querySelector(`[src*="${elem}"]`).style.borderImageSource = "linear-gradient(to right, blue, #FFFF55)";
-                    document.querySelector(`[src*="${elem}"]`).style.borderImageSlice = "1";
+                let [pyaku, ptopNum] = hantei(player);   
+                // 10%かつプレイヤーの役がスリーカード以下の時でプレイヤーよりも強い手になる
+                if (Math.floor(Math.random() * 10) < 1 && pyaku > 6){
+                    let [pyaku, ptopNum] = hantei(player);
+
+                        dealer = texasCheatDealer();
+                        console.log('ディーラーのチート');
+
                 }
-            });
+                dealerCardOpen(2);
+                dealer = tehudakettei(dealer);
+                winDecide();
+
+                // プレイヤーの強い役が作れるカード5枚に青の枠線を追加
+                player.forEach(elem => {
+                    document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid blue";
+                });
+
+                // ディーラーの強い役が作れるカード5枚に黄の枠線を追加
+                dealer.forEach(elem => {
+                    document.querySelector(`[src*="${elem}"]`).style.border = " 6px solid #FFFF55";
+                    // プレイヤーとディーラー両方が使用するカードは青と黄両方の枠線
+                    if (player.includes(elem)==true){
+                        document.querySelector(`[src*="${elem}"]`).style.borderImageSource = "linear-gradient(to right, blue, #FFFF55)";
+                        document.querySelector(`[src*="${elem}"]`).style.borderImageSlice = "1";
+                    }
+                })
+            }
         }
     }
     tempBetMoney = betMoney;
@@ -979,10 +986,11 @@ const fiveCheatDealer = () => {
     while(dyaku>pyaku || (dyaku==pyaku && numWin==false)){
         numWin = false;
         temptrump = trump.slice();
+
         for(let i=0; i<5; i++){
             ram = Math.floor(Math.random() * temptrump.length);
             tempdealer[i] = temptrump[ram];
-            temptrump.splice(ram-1,1);
+            temptrump.splice(ram,1);
         }
         [dyaku, dtopNum] = hantei(tempdealer);
         
@@ -1017,7 +1025,7 @@ const texasCheatDealer = () => {
         for(let i=0; i<2; i++){
             ram = Math.floor(Math.random() * temptrump.length);
             tempdealer[i] = temptrump[ram];
-            temptrump.splice(ram-1,1);
+            temptrump.splice(ram,1);
         }
         tempdealer5 = tehudakettei(tempdealer);
         [dyaku, dtopNum] = hantei(tempdealer5);
