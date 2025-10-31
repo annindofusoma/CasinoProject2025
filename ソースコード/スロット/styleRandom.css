@@ -431,14 +431,13 @@ img {
 
 #ランダム説明 {
     margin-top: 100px;
+    margin-left: 50px;
     width: 1100px;
     height: 764px;
     display: none;
     /* 画像の背後が見えるように透過 */
     opacity: 95%;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 8;
 }
 
