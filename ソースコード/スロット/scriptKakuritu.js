@@ -491,7 +491,7 @@ start.addEventListener("click", () => {
   hidari7 = "";
   naka7 = "";
   migi7 = "";
-  randomNum = Math.floor(Math.random() * 40) + 1;
+  randomNum = Math.floor(Math.random() * 120) + 1;
 
   if (atarime1 === true) {
     randomNum = 121;
