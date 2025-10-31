@@ -1,4 +1,9 @@
 /* 背景、全体 */
+main{
+  width: 1950px;
+  height: 945px;
+  box-shadow: 0 0 10px 0 lightgray;
+}
 body {
   background-color: rgb(1, 125, 26);
   margin: 0;
@@ -135,7 +140,7 @@ button#Hidari1st12,button#Naka2nd12,button#Migi3rd12{
   height: 70px;
   font-size: 50px;
   border: solid 3px white;
-  bottom: 135px;
+  top: 740px;
 }
 button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Black{
   background-color: green;
@@ -145,18 +150,18 @@ button#Mae1To18,button#Usiro19To36,button#Even,button#Odd,button#Red,button#Blac
   height: 70px;
   font-size: 25px;
   border: solid 3px white;
-  bottom: 65px;
+  top: 810px;
 }
 
 /* 上下の幅 */
 button#No1,button#No4,button#No7,button#No10,button#No13,button#No16,button#No19,button#No22,button#No25,button#No28,button#No31,button#No34{
-  bottom: 220px;
+  top: 655px;
 }
 button#No2,button#No5,button#No8,button#No11,button#No14,button#No17,button#No20,button#No23,button#No26,button#No29,button#No32,button#No35{
-  bottom: 305px;
+  top: 570px;
 }
 button#No3,button#No6,button#No9,button#No12,button#No15,button#No18,button#No21,button#No24,button#No27,button#No30,button#No33,button#No36{
-  bottom: 390px;
+  top: 485px;
 }
 
 /* 左右の幅 */
@@ -209,7 +214,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 390px;
+  top: 486px;
   left: 165px;
 }
 .上段縦向き button {
@@ -225,7 +230,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 305px;
+  top: 570px;
   left: 165px;
 }
 .中段縦向き button {
@@ -240,7 +245,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 220px;
+  top: 655px;
   left: 165px;
 }
 .下段縦向き button {
@@ -255,7 +260,7 @@ color: rgba(0,0,0,0);
   width: 1005px;
   background-color: none;
   position: absolute;
-  bottom: 375px;
+  top: 555px;
   left: 95px;
 }
 .上段横向き button {
@@ -270,7 +275,7 @@ color: rgba(0,0,0,0);
   width: 1005px;
   background-color: none;
   position: absolute;
-  bottom: 290px;
+  top: 640px;
   left: 95px;
 }
 .中段横向き button {
@@ -285,7 +290,7 @@ color: rgba(0,0,0,0);
   width: 1005px;
   background-color: none;
   position: absolute;
-  bottom: 205px;
+  top: 725px;
   left: 95px;
 }
 .下段横向き button {
@@ -300,7 +305,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 375px;
+  top: 555px;
   left: 165px;
 }
 .上段四つ角 button {
@@ -317,7 +322,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 290px;
+  top: 640px;
   left: 165px;
 }
 .中段四つ角 button {
@@ -334,7 +339,7 @@ color: rgba(0,0,0,0);
   width: 865px;
   background-color: none;
   position: absolute;
-  bottom: 205px;
+  top: 725px;
   left: 165px;
 }
 .下段四つ角 button {
@@ -367,7 +372,7 @@ button#No0{
   position: absolute;
   width: 70px;
   height: 255px;
-  bottom: 205px;
+  top: 485px;
   left: 10px;
   border: solid 3px white;
 }
@@ -393,22 +398,22 @@ button#Usiro19To36{
   left: 932.5px;
 }
 button#No0and1{
-  bottom: 205px;
+  top: 655px;
 }
 button#No0and2{
-  bottom: 290px;
+  top: 570px;
 }  
 button#No0and3{
-  bottom: 375px;
+  top: 485px;
 }
 button#Sita2To1{
-  bottom: 205px;
+  top: 655px;
 }
 button#Naka2To1{
-  bottom: 290px;
+  top: 570px;
 }
 button#Ue2To1{
-  bottom: 375px;
+  top: 485px;
 }
 
 /* 1000,10000のp要素レイアウト */
@@ -458,9 +463,7 @@ button#Ue2To1{
   border-color: black;
   position: absolute;
   top: 35px;
-/* 真ん中(left50%)から200px右 位置移動したいときは以下を変更 */
-  left: 73%; 
-  transform: translateX(200px);
+  left: 1600px;
 } 
 /* 所持金 */
 #ownMoney{
@@ -489,7 +492,7 @@ button#Ue2To1{
   background-color: white;
   position: absolute;
   top: 35px;
-  left: 2.5%;
+  left: 60px;
   transform: translateX(200px);
   max-height: 300px;
   overflow-y: auto;
@@ -691,8 +694,9 @@ padding: 10px 20px;
 font-size: 20px;
 cursor: pointer;
 position: absolute;
-top: 5%;
-left: 75%;
+top: 40px;
+left: 1400px;
+white-space: nowrap;
 }
 
 #close{
