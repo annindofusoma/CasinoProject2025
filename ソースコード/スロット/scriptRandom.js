@@ -13,7 +13,7 @@ const migiReels = [
 const reelHeight = 77.55;
 const topStart = 152.35;
 const topEnd = 462.55;
-const speed = 4;
+const speed = 2;
 
 let hidariReelInterval;
 let nakaReelInterval;
