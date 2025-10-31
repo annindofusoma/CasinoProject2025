@@ -55,7 +55,6 @@ img {
     /* 画像の背後が見えるように透過 */
     opacity: 95%;
     position: absolute;
-    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     z-index: 8;
@@ -64,7 +63,6 @@ img {
 #MERSUS説明閉じる {
     margin-top: 750px;
     position: absolute;
-    position: fixed;
     display: none;
     margin-left: 1050px;
     transform: translateX(-50%);
@@ -83,7 +81,6 @@ img {
     /* 画像の背後が見えるように透過 */
     opacity: 95%;
     position: absolute;
-    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     z-index: 8;
@@ -98,7 +95,6 @@ img {
     /* 画像の背後が見えるように透過 */
     opacity: 95%;
     position: absolute;
-    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     z-index: 8;
@@ -107,7 +103,6 @@ img {
 #オキドキ説明閉じる {
     margin-top: 750px;
     position: absolute;
-    position: fixed;
     display: none;
     margin-left: 1050px;
     transform: translateX(-50%);
@@ -120,7 +115,6 @@ img {
 #オキドキ説明次へ {
     margin-top: 750px;
     position: absolute;
-    position: fixed;
     display: none;
     left: 50%;
     transform: translateX(-50%);
@@ -133,7 +127,6 @@ img {
 #オキドキ説明前へ {
     margin-top: 750px;
     position: absolute;
-    position: fixed;
     display: none;
     left: 50%;
     transform: translateX(-50%);
