@@ -23,10 +23,10 @@ img {
 
 
 #gameover {
-    width: 1800px;
-    height: auto;
-    top: 0px;
-    left: 60px;
+    width: 1700px;
+    height: 950px;
+    margin-top: -18px;
+    margin-left: -250px;
     display: none;
     /* 画像の背後が見えるように透過 */
     opacity: 85%;
