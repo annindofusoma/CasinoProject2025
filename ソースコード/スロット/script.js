@@ -465,5 +465,6 @@ const gameover = () => {
     if (storage.money < 1000){
         document.getElementById("gameover").style.display = "block";
         document.getElementById("goclose").style.display = "block";
+        start.disabled = true;
     }
 }
